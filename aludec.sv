@@ -6,6 +6,7 @@ always_comb
     case(aluop)
         2'b00: alucontrol <= 3'b010; // add (for lw/sw/addi)
         2'b01: alucontrol <= 3'b110; // sub (for beq)
+        2'b11: alucontrol <= 3'b001;
         default: case(funct) // R-type instructions
             6'b100000: alucontrol <= 3'b010; // add
             6'b100010: alucontrol <= 3'b110; // sub

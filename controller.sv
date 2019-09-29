@@ -12,11 +12,11 @@ logic [1:0] aluop;
 logic branch;
 
 maindec md(op, memtoreg, memwrite, branch,
-            alusrc, regdst, regwrite, jump, aluop);
+            alusrc, regdst, regwrite, jump,ne, aluop);
 
 aludec ad(funct, aluop, alucontrol);
 
-wire  bne_rc;
+logic  bne_rc;
 assign bne_rc = ne ^ zero ;
 assign pcsrc = branch & bne_rc;
 

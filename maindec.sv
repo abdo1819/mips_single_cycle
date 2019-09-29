@@ -7,7 +7,7 @@ module maindec(input logic [5:0] op,
     output logic ne,
     output logic [1:0] aluop);
 
-logic [8:0] controls;
+logic [10:0] controls;
 
 assign {regwrite, regdst, alusrc, branch, memwrite,
         memtoreg, jump, aluop, ne} = controls;
@@ -20,9 +20,9 @@ always_comb
         6'b101011: controls <= 11'b00010100000; // SW
         6'b000100: controls <= 11'b00001000010; // BEQ
         6'b001000: controls <= 11'b10010000000; // ADDI
-        6'b001101: controls <= 11'b10100000000; // ORI
+        6'b001101: controls <= 11'b10110000110; // ORI
         6'b000010: controls <= 11'b00000001000; // J
-        6'b000101: controls <= 11'b00001000011  // BNQ
+        6'b000101: controls <= 11'b00001000011;  // BNQ
         default: controls <= 9'bxxxxxxxxx; // illegal op
     endcase
 endmodule

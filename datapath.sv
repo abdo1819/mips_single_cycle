@@ -1,7 +1,7 @@
 module datapath(input logic clk, reset,
                 input logic memtoreg, pcsrc,
                 input logic [1:0] alusrc,
-                output logic ne,
+                input logic ne,
                 input logic regdst,
                 input logic regwrite, jump,
                 input logic [2:0] alucontrol,
@@ -43,7 +43,7 @@ module datapath(input logic clk, reset,
 
     logic [31:0] extimm;
     logic [31:0] zeroimm;
-    extnext ex(instr[15:0], zeroimm)
+    extnext ex(instr[15:0], zeroimm);
     // ALU logic
     mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
     mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
