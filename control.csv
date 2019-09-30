@@ -1,0 +1,10 @@
+signal,srt
+MemtoReg,0
+MemWrite,0
+Branch,0
+ALUControl,'shift'
+ALUSrc,1
+RegDST,0
+REgWrite,1
+Jump,0
+ZeroSig,1
