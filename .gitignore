@@ -54,6 +54,7 @@
 !*.tbd
 !*.sof
 !*.sv
+!*.asm
 ## tbd
 
 !*.tcl
