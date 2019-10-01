@@ -8,7 +8,6 @@
 
 [] add control for zeroSign 0 so it choose the extention of zero
 
-[*] add signal to ALUControl
 
 ## ALU
 
