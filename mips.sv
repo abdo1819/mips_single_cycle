@@ -10,7 +10,7 @@ logic memtoreg, ne, regdst,
 
 logic [1:0] alusrc;
 
-logic [2:0] alucontrol;
+logic [3:0] alucontrol;
 
 controller c(instr[31:26], instr[5:0], zero,
             memtoreg, memwrite, pcsrc,

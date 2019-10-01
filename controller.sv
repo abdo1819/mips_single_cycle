@@ -6,7 +6,7 @@ module controller(input logic [5:0] op, funct,
                     output logic regdst, regwrite,
                     output logic jump,
                     output logic ne,
-                    output logic [2:0] alucontrol);
+                    output logic [3:0] alucontrol);
 
 logic [1:0] aluop;
 logic branch;
