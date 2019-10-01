@@ -6,7 +6,7 @@ module mips(input logic clk, reset,
             input logic [31:0] readdata);
 
 logic memtoreg, ne, regdst,
-    regwrite, jump, pcsrc, zero;
+    regwrite, jump, pcsrc, zero, shiftReg;
 
 logic [1:0] alusrc;
 
@@ -15,12 +15,12 @@ logic [3:0] alucontrol;
 controller c(instr[31:26], instr[5:0], zero,
             memtoreg, memwrite, pcsrc,
             alusrc, regdst, regwrite, jump,ne,
-            alucontrol);
+            alucontrol, shiftReg);
 
 datapath dp(clk, reset, memtoreg, pcsrc,
             alusrc, ne, regdst, regwrite, jump,
             alucontrol,
             zero, pc, instr,
-            aluout, writedata, readdata);
+            aluout, writedata, readdata, shiftReg);
 
 endmodule

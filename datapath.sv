@@ -9,7 +9,8 @@ module datapath(input logic clk, reset,
                 output logic [31:0] pc,
                 input logic [31:0] instr,
                 output logic [31:0] aluout, writedata,
-                input logic [31:0] readdata);
+                input logic [31:0] readdata,
+                input logic shiftReg);
 
 
     logic [4:0] writereg;

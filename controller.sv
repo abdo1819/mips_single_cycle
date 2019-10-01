@@ -6,7 +6,8 @@ module controller(input logic [5:0] op, funct,
                     output logic regdst, regwrite,
                     output logic jump,
                     output logic ne,
-                    output logic [3:0] alucontrol);
+                    output logic [3:0] alucontrol,
+                    output logic shiftReg);
 
 logic [2:0] aluop;
 logic branch;
@@ -14,7 +15,7 @@ logic branch;
 maindec md(op, memtoreg, memwrite, branch,
             alusrc, regdst, regwrite, jump,ne, aluop);
 
-aludec ad(funct, aluop, alucontrol);
+aludec ad(funct, aluop, alucontrol,shiftReg);
 
 logic  bne_rc;
 assign bne_rc = ne ^ zero ;
