@@ -1,16 +1,20 @@
 # SRl (shift right logic)
 
 ## data path
-[] add mux choose from sign and zero extenders
+[ ] add mux choose from RD2 and shamt_extended 
+>controled by shift signal
+
+[ ] edit zero extender to take 5 bit shamt
+
 
 ## control
 [control.csv](./control.csv)
 
-[] add control for zeroSign 0 so it choose the extention of zero
+[ ] add shift signal from aludec
 
 
 ## ALU
 
-[*] implement shift in alu 
+[x] implement shift in alu 
 >alu function became 4 bits
 
