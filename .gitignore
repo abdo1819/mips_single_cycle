@@ -42,9 +42,9 @@
 /*
 !/*.gitignore
 ##
-!*.qpf
-!*.qsf
-!*.qws
+# !*.qpf
+# !*.qsf
+# !*.qws
 !*.bdf
 !*.vhd
 !*.v
