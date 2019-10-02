@@ -42,15 +42,11 @@ module datapath(input logic clk, reset,
 
     signext se(instr[15:0], signimm); //extend sign
 
-    logic [31:0] extimm ,extshamt, R_src;
+    logic [31:0] extimm;
     logic [31:0] zeroimm;
     extnext ex(instr[15:0], zeroimm);
-    extnext_temp exsh(instr[10:6], extshamt);
-
-    mux2 #(32) R_srcmux(writedata, extshamt, shiftReg, R_src);
-    mux2 #(32) srcbmux(R_src, extimm, alusrc[0], srcb);
     // ALU logic
-    // mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
+    mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
     mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
     alu alu(srca, srcb, alucontrol, aluout, zero);
 endmodule
