@@ -1,4 +1,5 @@
 module alu(input logic [31:0] a,b,
+            input logic [4:0] shamt,
             input logic [3:0] f,
             output logic [31:0] y,
             output logic  zero);
@@ -18,7 +19,7 @@ always_comb
                 y=a-b;
                 y=y[31]?'b1:'b0;
         end
-        4'b1000: y=a << b;
+        4'b1000: y=(b>>shamt); //srl
         default: y=0;
         endcase
 

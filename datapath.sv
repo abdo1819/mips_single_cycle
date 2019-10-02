@@ -47,5 +47,5 @@ module datapath(input logic clk, reset,
     // ALU logic
     mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
     mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
-    alu alu(srca, srcb, alucontrol, aluout, zero);
+    alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero); //inst[10:6] shamt
 endmodule
