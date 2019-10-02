@@ -15,4 +15,4 @@
 
 - [ ] and headings for this doc
 - [ ] find geral way for testing
-- [ ] make schmatic for all models
+- [ ] make schmatic for all instractions
