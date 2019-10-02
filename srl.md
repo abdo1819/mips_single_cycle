@@ -2,13 +2,13 @@
 
 ## data path
 
-[x] add shamt to alu
+- [x] add shamt to alu
 
 
 ## ALU
 
-[x] add shamt from datapath
+- [x] add shamt from datapath
 
-[x] implement shift in alu 
+- [x] implement shift in alu
 >alu function became 4 bits
 
