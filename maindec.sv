@@ -23,6 +23,7 @@ always_comb
         6'b001101: controls <= 12'b101100000110; // ORI
         6'b000010: controls <= 12'b000000010000; // J
         6'b000101: controls <= 12'b000010000011;  // BNQ
+        6'b000000: controls <= 12'b000010000011;  // andi
         default: controls <= 9'bxxxxxxxxx; // illegal op
     endcase
 endmodule

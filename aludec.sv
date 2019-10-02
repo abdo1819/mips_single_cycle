@@ -7,6 +7,7 @@ always_comb
         3'b000: alucontrol <= 4'b0010; // add (for lw/sw/addi)
         3'b001: alucontrol <= 4'b0110; // sub (for beq)
         3'b011: alucontrol <= 4'b0001; // or (for ori)
+        3'b100: alucontrol <= 4'b0000; // and (for andi)
         default: case(funct) // R-type instructions
             6'b100000: alucontrol <= 4'b0010; // add
             6'b100010: alucontrol <= 4'b0110; // sub
