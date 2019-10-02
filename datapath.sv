@@ -3,7 +3,7 @@ module datapath(input logic clk, reset,
                 input logic [1:0] alusrc,
                 input logic ne,
                 input logic regdst,
-                input logic regwrite, jump,
+                input logic regwrite, jump, half,b,
                 input logic [3:0] alucontrol,
                 output logic zero,
                 output logic [31:0] pc,
@@ -16,7 +16,12 @@ module datapath(input logic clk, reset,
     logic [31:0] pcnext, pcnextbr, pcplus4, pcbranch;
     logic [31:0] signimm, signimmsh;
     logic [31:0] srca, srcb;
-    logic [31:0] result;
+    logic [31:0] result; // datamemory after the one byte design
+    logic [31:0] result_T; 
+    logic [31:0] half_result_extended;
+    logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
+    logic [31:0] one_byte_result_sign_extended;
+
 
     // next PC logic
     flopr #(32) pcreg(clk, reset, pcnext, pc);
@@ -27,17 +32,28 @@ module datapath(input logic clk, reset,
 
     adder pcadd2(pcplus4, signimmsh, pcbranch); //branch or jumb
 
+    //half
+    signext se2(result_T[15:0], half_result_extended); //extend sign
+    //mux after the halfword
+    mux2 #(32) halfmux(result_T,half_result_extended,half,hw_dataMemeoryOutput);
+    // one byte
+    signex #(24,8) se3(result_T[7:0], one_byte_result_sign_extended);
+    //mux after the one byte word
+    mux2 #(32) ob_mux(hw_dataMemeoryOutput,
+                    one_byte_result_sign_extended,
+                    b,
+                    result);
+
     mux2 #(32) pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
     mux2 #(32) pcmux(pcnextbr, {pcplus4[31:28],
                     instr[25:0], 2'b00}, jump, pcnext);
 
-    // register file logic
     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
                 writereg, result, srca, writedata);
 
     mux2 #(5) wrmux(instr[20:16], instr[15:11],
                     regdst, writereg);
-    mux2 #(32) resmux(aluout, readdata, memtoreg, result);
+    mux2 #(32) resmux(aluout, readdata, memtoreg, result_T);
 
     signext se(instr[15:0], signimm); //extend sign
 
