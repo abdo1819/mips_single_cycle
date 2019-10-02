@@ -2,7 +2,7 @@ module datapath(input logic clk, reset,
                 input logic memtoreg, pcsrc,
                 input logic [1:0] alusrc,
                 input logic ne,
-                input logic regdst,
+                input logic regdst, lbu,
                 input logic regwrite, jump, half,b,
                 input logic [3:0] alucontrol,
                 output logic zero,
@@ -53,7 +53,8 @@ module datapath(input logic clk, reset,
 
     mux2 #(5) wrmux(instr[20:16], instr[15:11],
                     regdst, writereg);
-    mux2 #(32) resmux(aluout, readdata, memtoreg, result_T);
+    // mux2 #(32) resmux(aluout, readdata, memtoreg, result_T);
+    mux4 #(32) resmux(aluout, readdata, {24'b0,readdata[7:0]},{32'bx}, {lbu,memtoreg},result_T);////hey....:)from mux 2 to 4 and zero ext is modified with parameters ...good luck :)
 
     signext se(instr[15:0], signimm); //extend sign
 
