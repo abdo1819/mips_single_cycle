@@ -6,13 +6,16 @@ module controller(input logic [5:0] op, funct,
                     output logic regdst, regwrite,
                     output logic jump,
                     output logic ne,
-                    output logic [3:0] alucontrol);
+                    output logic half,
+                    output logic b,
+                    output logic [3:0] alucontrol,
+                    output logic lbu);
 
 logic [2:0] aluop;
 logic branch;
 
 maindec md(op, memtoreg, memwrite, branch,
-            alusrc, regdst, regwrite, jump,ne, aluop);
+            alusrc, regdst, regwrite, jump,ne, half, b, aluop, lbu);
 
 aludec ad(funct, aluop, alucontrol);
 
