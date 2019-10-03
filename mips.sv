@@ -15,10 +15,10 @@ logic [3:0] alucontrol;
 controller c(instr[31:26], instr[5:0], zero,
             memtoreg, memwrite, pcsrc,
             alusrc, regdst, regwrite, jump, ne, half, b,
-            alucontrol, lbu, oneZero);
+            alucontrol, jr,lbu, oneZero);
 
 datapath dp(clk, reset, memtoreg, pcsrc,
-            alusrc, ne, regdst, lbu, regwrite, jump, half, b, oneZero,
+            alusrc, ne, regdst, jr,lbu, regwrite, jump, half, b, oneZero,
             alucontrol, 
             zero, pc, instr,
             aluout, writedata, readdata);
