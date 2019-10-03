@@ -2,7 +2,7 @@ module datapath(input logic clk, reset,
                 input logic memtoreg, pcsrc,
                 input logic [1:0] alusrc,
                 input logic ne,
-                input logic regdst, jr, lbu,
+                input logic regdst, jr, lbu, link,
                 input logic regwrite, jump, half,b, oneZero,
                 input logic [3:0] alucontrol,
                 output logic zero,
@@ -18,6 +18,8 @@ module datapath(input logic clk, reset,
     logic [31:0] srca, srcb;
     logic [31:0] result; // datamemory after the one byte design
     logic [31:0] result_T; 
+    logic [31:0] bfresult ;
+    logic [4:0] outwrite;
     logic [31:0] half_result_extended;
     logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
     logic [31:0] one_byte_result_sign_extended;
@@ -42,7 +44,8 @@ module datapath(input logic clk, reset,
     mux2 #(32) ob_mux(hw_dataMemeoryOutput,
                     one_byte_result_sign_extended,
                     b,
-                    result);
+                    bfresult);
+    mux2 #(32) jal_resmux(bfresult, pcplus4, link, result);
 
     mux4 #(32) pcbrmux(pcplus4,srca, pcbranch,0, {pcsrc,jr}, pcnextbr);
     mux2 #(32) pcmux(pcnextbr, {pcplus4[31:28],
@@ -52,7 +55,8 @@ module datapath(input logic clk, reset,
                 writereg, result, srca, writedata);
 
     mux2 #(5) wrmux(instr[20:16], instr[15:11],
-                    regdst, writereg);
+                    regdst, outwrite);
+    mux2 #(5) linkmux(outwrite, 5'b11111, link, writereg);
     // mux2 #(32) resmux(aluout, readdata, memtoreg, result_T);
     mux4 #(32) resmux(aluout, readdata, {24'b0,readdata[7:0]},{32'bx}, {lbu,memtoreg},result_T);////hey....:)from mux 2 to 4 and zero ext is modified with parameters ...good luck :)
 
