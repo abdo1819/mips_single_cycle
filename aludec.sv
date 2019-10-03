@@ -1,8 +1,9 @@
 module aludec(input logic [5:0] funct,
                 input logic [2:0] aluop,
-                output logic [3:0] alucontrol);
-
+                output logic [3:0] alucontrol,output logic jr);
+assign jr=funct==8;
 always_comb
+	
     case(aluop)
         3'b000: alucontrol <= 4'b0010; // add (for lw/sw/addi)
         3'b001: alucontrol <= 4'b0110; // sub (for beq)

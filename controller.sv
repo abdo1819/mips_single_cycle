@@ -9,15 +9,15 @@ module controller(input logic [5:0] op, funct,
                     output logic half,
                     output logic b,
                     output logic [3:0] alucontrol,
-                    output logic lbu, oneZero);
+                    output logic jr,lbu, oneZero);
 
 logic [2:0] aluop;
 logic branch;
 
 maindec md(op, memtoreg, memwrite, branch,
-            alusrc, regdst, regwrite, jump,ne, half, b, aluop, lbu, oneZero);
+            alusrc, regdst, regwrite, jump,ne, half, b, aluop ,lbu, oneZero);
 
-aludec ad(funct, aluop, alucontrol);
+aludec ad(funct, aluop, alucontrol,jr);
 
 logic  bne_rc;
 assign bne_rc = ne ^ zero ;

@@ -2,7 +2,7 @@ module datapath(input logic clk, reset,
                 input logic memtoreg, pcsrc,
                 input logic [1:0] alusrc,
                 input logic ne,
-                input logic regdst, lbu,
+                input logic regdst, jr, lbu,
                 input logic regwrite, jump, half,b, oneZero,
                 input logic [3:0] alucontrol,
                 output logic zero,
@@ -44,7 +44,7 @@ module datapath(input logic clk, reset,
                     b,
                     result);
 
-    mux2 #(32) pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
+    mux4 #(32) pcbrmux(pcplus4,srca, pcbranch,0, {pcsrc,jr}, pcnextbr);
     mux2 #(32) pcmux(pcnextbr, {pcplus4[31:28],
                     instr[25:0], 2'b00}, jump, pcnext);
 
