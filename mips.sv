@@ -6,7 +6,7 @@ module mips(input logic clk, reset,
             input logic [31:0] readdata);
 
 logic memtoreg, ne, regdst,
-    regwrite, jump, pcsrc, zero, half, b, oneZero;
+    regwrite, jump, pcsrc, zero, half, b, oneZero, link;
 
 logic [1:0] alusrc;
 
