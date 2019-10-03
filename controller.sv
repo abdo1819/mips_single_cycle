@@ -15,7 +15,7 @@ logic [2:0] aluop;
 logic branch;
 
 maindec md(op, memtoreg, memwrite, branch,
-            alusrc, regdst, regwrite, jump,ne, half, b, aluop ,lbu, oneZero);
+            alusrc, regdst, regwrite, jump,ne, half, b, aluop, lbu, oneZero);
 
 aludec ad(funct, aluop, alucontrol,jr);
 
