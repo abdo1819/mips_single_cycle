@@ -44,7 +44,7 @@ mux[2] will chose from mux[1] output and a sign-extended one byte `{24{8-bits[7]
 
 #### schematic:
 
-![alt text](https://github.com/A-Siam/lhlb-mips/blob/master/0001.jpg "Schematic")
+![alt text](0001.jpg "Schematic")
 
 #### Code:
 refearing to the diff [file](https://github.com/A-Siam/lhlb-mips/blob/master/diff.diff
