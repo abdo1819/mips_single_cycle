@@ -1,7 +1,7 @@
 instruction,srl,lbu,andi,ori,jal
 REgWrite,1,1,1,1,1
 RegDST,0,0,0,0,0
-ALUSrc,11,01,01,11,00
+ALUSrc,11,01,11,11,00
 Branch,0,0,0,0,0
 MemWrite,0,0,0,0,0
 MemtoReg,0,0,0,0,0

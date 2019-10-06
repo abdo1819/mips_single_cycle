@@ -63,13 +63,10 @@ module datapath(input logic clk, reset,
     signext se(instr[15:0], signimm); //extend sign
 
     logic [31:0] extimm;
-    logic [31:0] zeroimm, oneimm, logicimm;
-    extone exo(instr[15:0], oneimm);
+    logic [31:0] zeroimm;
     extnext ex(instr[15:0], zeroimm);
     // ALU logic
     mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
-    mux2 #(32) extonezero(oneimm, zeroimm, oneZero, logicimm);
-    mux2 #(32) extimux(signimm ,  logicimm, alusrc[1], extimm);
-
+    mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
     alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero); //inst[10:6] shamt
 endmodule
