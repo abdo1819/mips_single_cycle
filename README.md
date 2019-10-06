@@ -5,7 +5,7 @@
 - [x] jr 
 - [x] jal _done but not merged_
 - [x] bne 
-- [ ] andi _use zero extend_
+- [x] andi 
 - [x] srl
 - [x] lh
 - [x] lb
