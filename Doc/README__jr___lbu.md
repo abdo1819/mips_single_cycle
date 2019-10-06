@@ -1,7 +1,7 @@
 # jr : R-type instruction with funct=8
 - puts rs : instr[25:21] value inside PC reg to perform unconditional jump via reg value
 - jr signal added to controller and is assigned to 1 when funct=8 and opcode =8
--implementation :
+- implementation :
     - MUX added after the muxes of jump and pcsrc too set pc to regfile[rs] when jr =1 
     - when jr =0 pc will be set to value from the muxes that depend on pcsrc and jump
     
