@@ -5,7 +5,7 @@
 - [x] jr  
 - [x] jal 
 - [x] bne _already done from last year_
-- [x] andi
+- [ ] andi
 - [x] srl
 - [x] lh
 - [x] lb
