@@ -11,6 +11,6 @@
 
 -implementation :
     - MUX added after the muxes of lhf and lb too set pc to setregfile[rt]  = instr[7:0] as unsigned value  when lbu =1 
-    - when lbu =0 pc will be set to value from the muxes that depend on pcsrc and jump    
+    - when lbu =0 pc will be set to value from the muxes that depend on b and half  
     
    ![diagram](https://github.com/HMS-ELKHOLY/arch_lab09/blob/master/hms00b.bmp)
