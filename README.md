@@ -3,9 +3,9 @@
 
 ## todo this week
 - [x] jr 
-- [ ] jal _done but not merged_
+- [x] jal _done but not merged_
 - [x] bne 
-- [x] andi
+- [ ] andi _use zero extend_
 - [x] srl
 - [x] lh
 - [x] lb
