@@ -13,4 +13,4 @@
     - MUX added after the muxes of lhf and lb too set pc to setregfile[rt]  = instr[7:0] as unsigned value  when lbu =1 
     - when lbu =0 pc will be set to value from the muxes that depend on b and half  
     
-   ![diagram](https://github.com/abdo1819/arch_lab09/blob/master/Doc/hms00b.bmp)
+   ![diagram](hms00b.bmp)
