@@ -3,7 +3,7 @@
 
 ## todo this week
 - [x] jr 
-- [x] jal _done but not merged_
+- [x] jal 
 - [x] bne 
 - [x] andi 
 - [x] srl
