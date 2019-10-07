@@ -26,7 +26,7 @@ the following is a machine code description for lh and lb
 
 #### implementation:
 
-this design is based on the fact that `lw` was already implemented and working well so why not to reuse it? the output of  **MemToReg** multiplexer (`lw `'s output) i've used two multiplexers mux[1] and mux [2]
+this design is based on the fact that `lw` was already implemented and working well so why not to reuse it? at the output of  **MemToReg** multiplexer (`lw`'s output) i've used two multiplexers mux[1] and mux [2]
 
 mux[1] will chose from the full word (32-bit) and a sign-extended half word `{16{halfword[15]},halfword[15:0]}` using **half pin** as a controller
 
