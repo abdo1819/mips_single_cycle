@@ -20,7 +20,7 @@ the following is a machine code description for lh and lb
 #### Items/Pins:
 
 1. pin_b (byte) :  used as a selector for mux[2]
-2. half (pin) : used as a selector for mux[1]
+2. half (half-word) : used as a selector for mux[1]
 3. mux[1] (multiplexer): a multiplexer provide an option to full word or half word
 4. mux[2] (multiplexer): a multiplixer provide an option to mux[1] or one byte
 
