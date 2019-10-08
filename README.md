@@ -7,8 +7,8 @@
 - [ ] bne 
 - [x] andi 
 - [x] srl
-- [ ] lh
-- [ ] lb
+- [x] lh
+- [x] lb
 - [ ] lbu
 
 ##todo 
