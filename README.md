@@ -5,7 +5,7 @@
 - [ ] jr 
 - [ ] jal 
 - [ ] bne 
-- [ ] andi 
+- [x] andi 
 - [x] srl
 - [ ] lh
 - [ ] lb
