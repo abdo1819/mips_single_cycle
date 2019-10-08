@@ -1,4 +1,4 @@
-instruction,srl,lbu,andi,ori,jal
+instruction,r-type,lbu,andi,ori,jal
 REgWrite,1,1,1,1,1
 RegDST,0,0,0,0,0
 ALUSrc,11,01,11,11,00
