@@ -2,14 +2,14 @@
 
 
 ## todo this week
-- [x] jr 
-- [x] jal 
-- [x] bne 
-- [x] andi 
+- [ ] jr 
+- [ ] jal 
+- [ ] bne 
+- [ ] andi 
 - [x] srl
-- [x] lh
-- [x] lb
-- [x] lbu
+- [ ] lh
+- [ ] lb
+- [ ] lbu
 
 ##todo 
 
