@@ -4,20 +4,20 @@ module controller(input logic [5:0] op, funct,
                     output logic pcsrc, 
                     output logic [1:0] alusrc,
                     output logic regdst, regwrite,
-                    output logic jump,
+                    output logic jump,jr,
                     output logic ne,
                     output logic half,
                     output logic b,
                     output logic [3:0] alucontrol,
-                    output logic jr,lbu, link);
+                    output logic lbu, link);
 
-logic [2:0] aluop;
+logic [3:0] aluop;
 logic branch;
 
-maindec md(op, memtoreg, memwrite, branch,
-            alusrc, regdst, regwrite, jump,ne, half, b, aluop, lbu, link);
+maindec md(op,funct, memtoreg, memwrite, branch,
+            alusrc, regdst, regwrite, jump,jr,ne, half, b, aluop, lbu, link);
 
-aludec ad(funct, aluop, alucontrol,jr);
+aludec ad(funct, aluop, alucontrol);
 
 logic  bne_rc;
 assign bne_rc = ne ^ zero ;

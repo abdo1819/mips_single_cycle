@@ -2,8 +2,8 @@
 
 
 ## todo this week
-- [x] jr 
-- [x] jal 
+- [X] jr 
+- [ ] jal 
 - [x] bne 
 - [x] andi 
 - [x] srl

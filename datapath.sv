@@ -2,8 +2,8 @@ module datapath(input logic clk, reset,
                 input logic memtoreg, pcsrc,
                 input logic [1:0] alusrc,
                 input logic ne,
-                input logic regdst, jr, lbu, link,
-                input logic regwrite, jump, half,b,
+                input logic regdst, lbu, link,
+                input logic regwrite, jump,jr, half,b,
                 input logic [3:0] alucontrol,
                 output logic zero,
                 output logic [31:0] pc,
@@ -13,7 +13,7 @@ module datapath(input logic clk, reset,
 
 
     logic [4:0] writereg;
-    logic [31:0] pcnext, pcnextbr, pcplus4, pcbranch;
+    logic [31:0] pcnext, pcnextbr, pcplus4, pcbranch,pcnextj;
     logic [31:0] signimm, signimmsh;
     logic [31:0] srca, srcb;
     logic [31:0] result; // datamemory after the one byte design
@@ -35,7 +35,7 @@ module datapath(input logic clk, reset,
     adder pcadd2(pcplus4, signimmsh, pcbranch); //branch or jumb
 
     //half
-    signext se2(result_T[15:0], half_result_extended); //extend sign
+        signext se2(result_T[15:0], half_result_extended); //extend sign
     //mux after the halfword
     mux2 #(32) halfmux(result_T,half_result_extended,half,hw_dataMemeoryOutput);
     // one byte
@@ -47,9 +47,10 @@ module datapath(input logic clk, reset,
                     bfresult);
     mux2 #(32) jal_resmux(bfresult, pcplus4, link, result);
 
-    mux4 #(32) pcbrmux(pcplus4,srca, pcbranch,0, {pcsrc,jr}, pcnextbr);
+    mux2 #(32) pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
     mux2 #(32) pcmux(pcnextbr, {pcplus4[31:28],
-                    instr[25:0], 2'b00}, jump, pcnext);
+                    instr[25:0], 2'b00}, jump, pcnextj);
+    mux2 #(32) pcjrmux(pcnextj, srca, jr, pcnext);
 
     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
                 writereg, result, srca, writedata);
