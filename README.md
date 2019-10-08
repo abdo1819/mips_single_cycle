@@ -4,7 +4,7 @@
 ## todo this week
 - [ ] jr 
 - [ ] jal 
-- [ ] bne 
+- [x] bne 
 - [x] andi 
 - [x] srl
 - [x] lh
