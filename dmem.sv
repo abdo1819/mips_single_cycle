@@ -16,13 +16,13 @@ else if ( we == 2'b01 ) begin
     // {a[1],4'b0000} uses the second LSB as an indeicator to the upper 
     // or lower word starting point
     // which is an intuitive approuch to reach the half word
-    2'b10: RAM[a[31:2]][ {a[1],4'b0000} +: 16] <= wd[15:0]; // sh
+    RAM[a[31:2]][ {a[1],4'b0000} +: 16] <= wd[15:0]; // sh
 end
 else if (we == 2'b11) begin
     // {a[1:0],3'b000} uses the first and second LSB as an indeicator to the  
     // specified byte starting point
     // which is an intuitive approuch to reach the byte
-    2'b11: RAM[a[31:2]][ {a[1:0],3'b000} +: 8] <= wd[7:0]; // sb
+    RAM[a[31:2]][ {a[1:0],3'b000} +: 8] <= wd[7:0]; // sb
 end
 
 endmodule
