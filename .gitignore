@@ -73,7 +73,7 @@
 *.jpg
 *.html
 *.bsf
-
+*.pdf
 # ignore simulation output of ModelSim
 wlf*
 *.wlf
