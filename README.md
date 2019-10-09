@@ -24,7 +24,14 @@ state|isntraction| team #  |comment            | doc
 ✔    |lh         |     1   |                        |[lb___lh.md](Doc/README___lb___lh.md)
 ✔    |lb         |     1   |                        |[lb___lh.md](Doc/README___lb___lh.md)
 ✔    |lbu        |     1   |                        |[jr__lbu.md](Doc/README__jr___lbu.md)
-
+✔    |sll        |     2    |                       |
+✔    |lui        |     2    |                       |
+✔    |slti       |     2    |                       |
+✔    |blez       |     2    |                       |
+✔    |srlv       |     2    |                       | 
+✔    |ori        |     2    |                       | 
+✔    |xori       |     2    |                       | 
+✔    |jr         |     2    |**duplicated**|
 ### weak 2
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
