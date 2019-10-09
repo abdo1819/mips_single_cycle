@@ -43,7 +43,7 @@ begin
         6'b101001: controls <= 19'b0001010000000000000; // sh
         6'b101000: controls <= 19'b0001011000000000000; // sb
 
-        default:   controls <= 18'bxxxxxxxxxxxxxxxxxx; // illegal op
+        default:   controls <= 19'bxxxxxxxxxxxxxxxxxxx; // illegal op
 
     endcase
     end

@@ -1,12 +1,26 @@
-module dmem(input logic clk, we,
-            input logic [31:0] a, wd,
+//this was prof. harris in "digital design and computer architecture "
+// implementation before i turn the we signal into 2 bits  
+module dmem(input logic clk, [1:0]we, //where we is an output of the control unit
+            input logic [31:0] a, wd, 
             output logic [31:0] rd);
 
 logic [31:0] RAM[63:0];
 
 assign rd = RAM[a[31:2]]; // word aligned
 
-always_ff @(posedge clk)
-    if (we) RAM[a[31:2]] <= wd;
+always_ff
+  case(we)
+    2'b01: RAM[a[31:2]] <= wd; // sw 
+    // {a[1],4'b0000} uses the second LSB as an indeicator to the upper 
+    // or lower word starting point
+    // which is an intuitive approuch to reach the half word
+    2'b10: RAM[a[31:2]][ {a[1],4'b0000} +: 16] <= wd[15:0]; // sh 
+    // {a[1:0],3'b000} uses the first and second LSB as an indeicator to the  
+    // specified byte starting point
+    // which is an intuitive approuch to reach the byte
+    2'b11: RAM[a[31:2]][ {a[1:0],3'b000} +: 8] <= wd[7:0]; // sb
+    default:
+    // do nothing
+  endcase
 
 endmodule
