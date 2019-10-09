@@ -55,8 +55,9 @@ state|isntraction| team #  |comment            | doc
 ☐    |jalr       |     2   |                        |
 
 
-##todo 
-
+## todo 
+- [ ] reduce mux2 count in datapath
+- [ ] try to implement the processor according to  mips release 6
 - [ ] and headings for this doc
-- [ ] find geral way for testing
+- [ ] find general way for testing
 - [ ] make schmatic for all instractions
