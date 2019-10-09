@@ -18,7 +18,7 @@ assign {regwrite, regdst, alusrc, branch, memwrite,
 
 always_comb
 if((op == 0) && (funct==6'b001000)) begin
-       controls <= 18'b010000001000000000; // jr
+       controls <= 19'b0100000001000000000; // jr
      end
 else
 begin
