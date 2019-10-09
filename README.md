@@ -12,6 +12,9 @@ instractions |jr    | jal| bne| andi| srl| lh   | lb | lbu
 ### 8,oct,19
 * merging 8 instractions from team2 [v0.16](https://github.com/abdo1819/arch_lab09/releases/tag/v0.16)
 
+instractions |sll|lui|slti|blez|srlv|ori|xori|jr
+-----        |----|----|----|-----|----|----- |----|---- 
+
 ## instractions progress
 ### weak 1
 state|isntraction| team #  |comment            | doc 
