@@ -1,7 +1,18 @@
 # arch_lab09
 
+# releases
+### 7,oct,19
+* 8 instractions has been implemented and tested release link
+[v0.8](https://github.com/abdo1819/arch_lab09/releases/tag/v0.8)
+* doc for them [doc.pdf](Doc/doc10_7_2019__latest004.pdf)
 
-## todo this week
+instractions |jr    | jal| bne| andi| srl| lh   | lb | lbu
+-----        |----|----|----|-----|----|----- |----|----        
+
+### 8,oct,19
+* merging 8 instractions from team2 [v0.16](https://github.com/abdo1819/arch_lab09/releases/tag/v0.16)
+
+## instractions progress
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
 ✔    |jr         |     1   |                        |[jr__lbu.md](Doc/README__jr___lbu.md) 
