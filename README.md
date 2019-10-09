@@ -48,7 +48,7 @@ state|isntraction| team #  |comment            | doc
 ☐    |subu       |     1   |                        |                               
 ☐    |bgtz       |     2   |                        |
 ☐    |lhu        |     2   |                        |
-☐    |sllv       |     2   |                        |
+☐    |sllv       |     2   |**duplicate**           |
 ☐    |srav       |     2   |                        |
 ☐    |sltiu      |     2   |                        |
 ☐    |xori       |     2   |                        |
