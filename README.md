@@ -13,6 +13,7 @@ instractions |jr    | jal| bne| andi| srl| lh   | lb | lbu
 * merging 8 instractions from team2 [v0.16](https://github.com/abdo1819/arch_lab09/releases/tag/v0.16)
 
 ## instractions progress
+### weak 1
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
 ✔    |jr         |     1   |                        |[jr__lbu.md](Doc/README__jr___lbu.md) 
@@ -23,6 +24,10 @@ state|isntraction| team #  |comment            | doc
 ✔    |lh         |     1   |                        |[lb___lh.md](Doc/README___lb___lh.md)
 ✔    |lb         |     1   |                        |[lb___lh.md](Doc/README___lb___lh.md)
 ✔    |lbu        |     1   |                        |[jr__lbu.md](Doc/README__jr___lbu.md)
+
+### weak 2
+state|isntraction| team #  |comment            | doc 
+-----|-----------|---------|-------------------|---------
 ☐    |addiu      |     1   |identical to addi       |    
 ☐    |sh         |     1   |                        |                               
 ☐    |sb         |     1   |                        |                               
@@ -31,6 +36,14 @@ state|isntraction| team #  |comment            | doc
 ☐    |divu       |     1   |                        |                               
 ☐    |mult       |     1   |                        |                               
 ☐    |subu       |     1   |                        |                               
+☐    |bgtz       |     2   |                        |
+☐    |lhu        |     2   |                        |
+☐    |sllv       |     2   |                        |
+☐    |srav       |     2   |                        |
+☐    |sltiu      |     2   |                        |
+☐    |xori       |     2   |                        |
+☐    |jalr       |     2   |                        |
+
 
 ##todo 
 
