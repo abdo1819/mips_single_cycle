@@ -39,8 +39,8 @@ state|isntraction| team #  |comment            | doc
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
 ☐    |addiu      |     1   |identical to addi       |    
-☐    |sh         |     1   |merge request sent      | in progress                             
-☐    |sb         |     1   |merge request sent      | in progress                               
+☐    |sh         |     1   |pending merge           | in progress                             
+☐    |sb         |     1   |pending merge           | in progress                               
 ☐    |sra        |     1   |                        |                               
 ☐    |sllv       |     1   |                        |                               
 ☐    |divu       |     1   |                        |                               
