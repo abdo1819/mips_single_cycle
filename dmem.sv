@@ -1,5 +1,4 @@
-//this was prof. harris in "digital design and computer architecture "
-// implementation before i turn the we signal into 2 bits  
+
 module dmem(input logic clk, [1:0]we, //where we is an output of the control unit
             input logic [31:0] a, wd, 
             output logic [31:0] rd);
