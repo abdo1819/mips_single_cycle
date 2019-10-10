@@ -1,7 +1,7 @@
 module mips(input logic clk, reset,
             output logic [31:0] pc,
             input logic [31:0] instr,
-            output logic memwrite,
+            output logic [1:0]memwrite,
             output logic [31:0] aluout, writedata,
             input logic [31:0] readdata);
 

@@ -8,7 +8,7 @@ logic [31:0] RAM[63:0];
 
 assign rd = RAM[a[31:2]]; // word aligned
 
-always_ff begin
+always_ff @(posedge clk)
     
 if ( we == 2'b01 ) begin
     RAM[a[31:2]] <= wd;
@@ -25,5 +25,5 @@ else if (we == 2'b11) begin
     // which is an intuitive approuch to reach the byte
     RAM[a[31:2]][ {a[1:0],3'b000} +: 8] <= wd[7:0]; // sb
 end
-end
+
 endmodule
