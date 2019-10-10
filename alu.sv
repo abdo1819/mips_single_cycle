@@ -20,6 +20,8 @@ always_comb
                 y=y[31]?'b1:'b0;
         end
         4'b1000: y=(b>>shamt); //srl
+        4'b1001: y=(b>>>shamt);//srA
+
         default: y=0;
         endcase
 
