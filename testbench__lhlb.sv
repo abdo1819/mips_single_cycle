@@ -1,4 +1,4 @@
-module testbench_lhlb();
+module testbench__lhlb();
 
 logic clk;
 logic reset;
