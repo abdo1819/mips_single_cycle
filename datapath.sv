@@ -17,7 +17,7 @@ module datapath(input logic clk, reset,
     logic [31:0] signimm, signimmsh;
     logic [31:0] srca, srcb;
 	logic [31:0] Q,R;          //we add quotient and remainder  for division
-	logic finish;               //we add finish for indicating finishing division
+	logic finish=0;               //we add finish for indicating finishing division
     logic [31:0] rdflo, rdfhi; //we add this to read data from lo and hi
     logic [31:0] result;        // datamemory after the one byte design
     logic [31:0] result_T; 
@@ -57,7 +57,7 @@ module datapath(input logic clk, reset,
     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
                 writereg, result, srca, writedata);
 				
-	divufile divu(clk,srca,writedata,Q,R,finish); //we add module for dividing 	
+	divufile divu(clk,!finish,srca,writedata,Q,R,finish); //we add module for dividing 	
 
     spregfile spr(clk,spregwrite,Q,R,rdflo, rdfhi);//we add module for special reg for restoting data in mult and div
 
