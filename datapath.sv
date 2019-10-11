@@ -57,7 +57,7 @@ module datapath(input logic clk, reset,
     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
                 writereg, result, srca, writedata);
 				
-	divufile divu(clk,!finish,srca,writedata,Q,R,finish); //we add module for dividing 	
+	divufile divu(clk,srca,writedata,Q,R,finish); //we add module for dividing 	
 
     spregfile spr(clk,spregwrite,Q,R,rdflo, rdfhi);//we add module for special reg for restoting data in mult and div
 

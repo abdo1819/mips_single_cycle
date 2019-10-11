@@ -1,4 +1,4 @@
-module mips(input logic clk, reset,
+module mips(input logic clk,input reset,
             output logic [31:0] pc,
             input logic [31:0] instr,
             output logic [1:0]memwrite,
