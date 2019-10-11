@@ -28,9 +28,10 @@ always_comb
                 else
                         y=1;
                 end
-	              	  
+                      
         4'b1011: y = ( b >> (a[4:0]) ); //srlv
         4'b1100: y=(b>>shamt);
+        4'b1101: y=(b>>>shamt);
         default: y=0;
         endcase
 
