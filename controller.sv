@@ -1,6 +1,6 @@
 module controller(input logic [5:0] op, funct,
                     input logic zero,
-                    output logic memtoreg, memwrite,
+                    output logic memtoreg, [1:0] memwrite,
                     output logic pcsrc, 
                     output logic [1:0] alusrc,
                     output logic regdst, regwrite,

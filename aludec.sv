@@ -23,7 +23,8 @@ always_comb
             6'b101010: alucontrol <= 4'b0111; // slt
             6'b000010: alucontrol <= 4'b1100; // srl
             6'b000110: alucontrol <= 4'b1011; // srlv
-            6'b000100: alucontrol <= 4'b1101; //sllv    
+            6'b000100: alucontrol <= 4'b1110; //sllv    
+            6'b000011: alucontrol <= 4'b1101; // sra
             default: alucontrol <= 4'bxxxx; // ???
         endcase
     endcase
