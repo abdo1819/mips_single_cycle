@@ -38,11 +38,11 @@ state|isntraction| team #  |comment            | doc
 ### weak 2
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
-☐    |addiu      |     1   |identical to addi       |    
-☐    |sh         |     1   |                        |                              
-☐    |sb         |     1   |                        |                              
-☐    |sra        |     1   |                        |                               
-☐    |sllv       |     1   |                        |                               
+✔    |addiu      |     1   |identical to addi       |    
+✔    |sh         |     1   |                        |                              
+✔    |sb         |     1   |                        |                              
+✔    |sra        |     1   |                        |                               
+✔    |sllv       |     1   |                        |                               
 ☐    |divu       |     1   |                        |                               
 ☐    |mult       |     1   |                        |                               
 ☐    |subu       |     1   |                        |                               
