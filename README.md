@@ -61,3 +61,4 @@ state|isntraction| team #  |comment            | doc
 - [ ] and headings for this doc
 - [ ] find general way for testing
 - [ ] make schmatic for all instractions
+- [ ] orgnize files
