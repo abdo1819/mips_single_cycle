@@ -18,6 +18,7 @@ always_comb
             6'b000000: alucontrol <= 4'b0011; // sll
             6'b100000: alucontrol <= 4'b0010; // add
             6'b100010: alucontrol <= 4'b0110; // sub
+            6'b100011: alucontrol <= 4'b0110; // subu
             6'b100100: alucontrol <= 4'b0000; // and
             6'b100101: alucontrol <= 4'b0001; // or
             6'b101010: alucontrol <= 4'b0111; // slt
