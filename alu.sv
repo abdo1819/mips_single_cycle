@@ -2,7 +2,8 @@ module alu(input logic [31:0] a,b,
             input logic [4:0] shamt,
             input logic [3:0] f,
             output logic [31:0] y,
-            output logic  zero);
+            output logic  zero,
+            output logic [63:0] result);
 
 
 always_comb
@@ -33,6 +34,7 @@ always_comb
         4'b1100: y=(b>>shamt);
         4'b1101: y=(b>>>shamt);
         4'b1110: y = ( b << (a[4:0]) ); //sllv
+        4'b1111: result = $signed(a) * $signed(b);  //mult
         default: y=0;
         endcase
 
