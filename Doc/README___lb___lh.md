@@ -47,7 +47,7 @@ mux[2] will chose from mux[1] output and a sign-extended one byte `{24{8-bits[7]
 ![alt text](0001.jpg "Schematic")
 
 #### Code:
-refearing to the diff [file](https://github.com/abdo1819/arch_lab09/blob/master/diff__sh_sb.diff
+refearing to the diff [file](https://github.com/A-Siam/lhlb-mips/blob/master/diff.diff
 ) to make a quick review to what i've changed/added 
 ### Reference:
 
