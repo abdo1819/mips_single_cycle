@@ -19,12 +19,16 @@ assign {regwrite, regdst, alusrc, branch, memwrite,
 
 
 always_comb
-if((op == 0) && (funct==6'b001000)) begin
-       controls <= 20'b0100000001000000000; // jr
-     end
-     else if ((op == 0) && (funct==6'b001001)) begin
-       controls <= 18'b110000001000000001;
-     end
+// TODO fix mult ,jr, jal
+    if((op == 0) && (funct==6'b001000)) begin
+       controls <= 20'b01000000010000000000; // jr
+    end
+    else if ((op == 0) && (funct==6'b001001)) begin
+       controls <= 18'b110000001000000001;  //jalr
+    end
+    else if ((op == 0) && (funct==6'b011000)) begin
+        controls <= 21'b00000000011110000001; //mult;
+    end
 
 else
 begin
