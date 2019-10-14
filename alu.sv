@@ -29,8 +29,7 @@ always_comb
                 else
                         y=1;
                 end
-
-	              	  
+ 
         5'b01011: y = ( b >> (a[4:0]) ); //srlv
         5'b01100: y=(b>>shamt);
         5'b01101: y = ( $signed(b) >>> (a[4:0]) ); //srav
@@ -45,6 +44,7 @@ always_comb
         5'b10001: y=(b>>>shamt); // sra
         5'b10010: y = ( b << (a[4:0]) ); //sllv
         5'b10011: result = $signed(a) * $signed(b);  //mult
+        5'b10100: y=~(a|b); // nor
 
 
 

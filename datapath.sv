@@ -47,7 +47,7 @@ logic [63:0] bigresult;
         extnext ext0(result_T[15:0], half_result_extended0);
     //mux after the halfword
    // mux2 #(32) halfmux(result_T,half_result_extended,half,hw_dataMemeoryOutput);
-      mux3 #(32) halfmux(result_T,half_result_extended, half_result_extended0,half,hw_dataMemeoryOutput);
+    mux3 #(32) halfmux(result_T,half_result_extended, half_result_extended0,half,hw_dataMemeoryOutput);
     // one byte
     signex #(24,8) se3(result_T[7:0], one_byte_result_sign_extended);
     //mux after the one byte word
