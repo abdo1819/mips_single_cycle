@@ -3,7 +3,7 @@ module datapath(input logic clk, reset,
                 input logic [1:0] alusrc,
                 input logic ne,
                 input logic regdst, lbu, link,
-                input logic regwrite, jump,jr, half,b,
+                                input logic regwrite, jump,jr, half,b,spregwrite,
                 input logic [3:0] alucontrol,
                 output logic zero,
                 output logic [31:0] pc,
@@ -23,8 +23,13 @@ module datapath(input logic clk, reset,
     logic [31:0] half_result_extended;
     logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
     logic [31:0] one_byte_result_sign_extended;
+	
+logic [63:0] bigresult;
+    logic [31:0] highlowout;
 
+  highlow hl(clk, spregwrite, 1'b1, bigresult, highlowout);
 
+	
     // next PC logic
     flopr #(32) pcreg(clk, reset, pcnext, pc);
 
@@ -69,5 +74,5 @@ module datapath(input logic clk, reset,
     // ALU logic
     mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
     mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
-    alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero); //inst[10:6] shamt
+     alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero, bigresult); //inst[10:6] shamt
 endmodule

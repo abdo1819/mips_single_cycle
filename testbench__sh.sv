@@ -1,4 +1,4 @@
-module testbench();
+module testbench__sh();
 
 logic clk;
 logic reset;
