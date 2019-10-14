@@ -17,7 +17,7 @@ initial
 // generate clock to sequence tests
 always
     begin
-    clk <= 1; # 50; clk <= 0; # 50;
+    clk <= 1; # 5; clk <= 0; # 5;
     end
 
 // check results
