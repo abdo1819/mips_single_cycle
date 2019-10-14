@@ -3,7 +3,7 @@ module testbench__lhlb();
 logic clk;
 logic reset;
 logic [31:0] writedata, dataadr;
-logic memwrite;
+logic [1:0 ]memwrite;
 
 // instantiate device to be tested
 top dut (clk, reset, writedata, dataadr, memwrite);
