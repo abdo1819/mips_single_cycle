@@ -17,7 +17,6 @@ always_comb
         default: case(funct) // R-type instructions
             6'b000000: alucontrol <= 4'b0011; // sll
             6'b100000: alucontrol <= 4'b0010; // add
-            6'b001001: alucontrol <= 4'b0010; // addiu
             6'b100010: alucontrol <= 4'b0110; // sub
             6'b100011: alucontrol <= 4'b0110; // subu
             6'b100100: alucontrol <= 4'b0000; // and
