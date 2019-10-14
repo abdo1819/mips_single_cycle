@@ -1,0 +1,123 @@
+diff --git a/controller.sv b/controller.sv
+index 1340387..79b2bf2 100644
+--- a/controller.sv
++++ b/controller.sv
+@@ -1,6 +1,6 @@
+ module controller(input logic [5:0] op, funct,
+                     input logic zero,
+-                    output logic memtoreg, memwrite,
++                    output logic memtoreg, [1:0] memwrite,
+                     output logic pcsrc, 
+                     output logic [1:0] alusrc,
+                     output logic regdst, regwrite,
+diff --git a/dmem.sv b/dmem.sv
+index b72ddae..07dbb51 100644
+--- a/dmem.sv
++++ b/dmem.sv
+@@ -1,5 +1,6 @@
+-module dmem(input logic clk, we,
+-            input logic [31:0] a, wd,
++
++module dmem(input logic clk, [1:0]we, //where we is an output of the control unit
++            input logic [31:0] a, wd, 
+             output logic [31:0] rd);
+ 
+ logic [31:0] RAM[63:0];
+@@ -7,6 +8,21 @@ logic [31:0] RAM[63:0];
+ assign rd = RAM[a[31:2]]; // word aligned
+ 
+ always_ff @(posedge clk)
+-    if (we) RAM[a[31:2]] <= wd;
++    
++if ( we == 2'b01 ) begin
++    RAM[a[31:2]] <= wd;
++end 
++else if ( we == 2'b10 ) begin //sh
++    // {a[1],4'b0000} uses the second LSB as an indeicator to the upper 
++    // or lower word starting point
++    // which is an intuitive approuch to reach the half word
++    RAM[a[31:2]][ {a[1],4'b0000} +: 16] <= wd[15:0]; // sh
++end
++else if (we == 2'b11) begin //sb
++    // {a[1:0],3'b000} uses the first and second LSB as an indeicator to the  
++    // specified byte starting point
++    // which is an intuitive approuch to reach the byte
++    RAM[a[31:2]][ {a[1:0],3'b000} +: 8] <= wd[7:0]; 
++end
+ 
+ endmodule
+\ No newline at end of file
+diff --git a/imem.sv b/imem.sv
+index 55b2029..7740811 100644
+--- a/imem.sv
++++ b/imem.sv
+@@ -5,7 +5,7 @@ logic [31:0] RAM[63:0];
+ 
+ initial
+ 
+-    $readmemh("memfile__lh_lb.dat", RAM);
++    $readmemh("memfile__sb.dat", RAM);
+     assign rd = RAM[a]; // word aligned
+ 
+ endmodule
+\ No newline at end of file
+diff --git a/maindec.sv b/maindec.sv
+index 8ae392a..ca4929c 100644
+--- a/maindec.sv
++++ b/maindec.sv
+@@ -43,7 +43,7 @@ begin
+         6'b101001: controls <= 19'b0001010000000000000; // sh
+         6'b101000: controls <= 19'b0001011000000000000; // sb
+ 
+-        default:   controls <= 18'bxxxxxxxxxxxxxxxxxx; // illegal op
++        default:   controls <= 19'bxxxxxxxxxxxxxxxxxxx; // illegal op
+ 
+     endcase
+     end
+diff --git a/mips.sv b/mips.sv
+index 4b64247..b46b919 100644
+--- a/mips.sv
++++ b/mips.sv
+@@ -1,7 +1,7 @@
+ module mips(input logic clk, reset,
+             output logic [31:0] pc,
+             input logic [31:0] instr,
+-            output logic memwrite,
++            output logic [1:0]memwrite,
+             output logic [31:0] aluout, writedata,
+             input logic [31:0] readdata);
+ 
+diff --git a/testbench.sv b/testbench.sv
+index 1946610..7f443e6 100644
+--- a/testbench.sv
++++ b/testbench.sv
+@@ -3,7 +3,7 @@ module testbench();
+ logic clk;
+ logic reset;
+ logic [31:0] writedata, dataadr;
+-logic memwrite;
++logic [1:0]memwrite;
+ 
+ // instantiate device to be tested
+ top dut (clk, reset, writedata, dataadr, memwrite);
+@@ -24,7 +24,7 @@ always
+ always @(negedge clk)
+     begin
+         if (memwrite) begin
+-            if (dataadr === 84 & writedata === -33022) begin
++            if (dataadr === 80 & writedata === 32'b00000000000000001010101011111111) begin
+                     $display("Simulation succeeded");
+                     $stop;
+             end else if (dataadr !== 80) begin
+diff --git a/top.sv b/top.sv
+index f9cd074..222cdec 100644
+--- a/top.sv
++++ b/top.sv
+@@ -1,6 +1,6 @@
+ module top(input logic clk, reset,
+             output logic [31:0] writedata, dataadr,
+-            output logic memwrite);
++            output logic [1:0]memwrite);
+ 
+ logic [31:0] pc, instr, readdata;
+ 
