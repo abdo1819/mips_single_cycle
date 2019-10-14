@@ -2,7 +2,7 @@ module datapath(input logic clk, reset,
                 input logic memtoreg, pcsrc,
                 input logic [1:0] alusrc,
                 input logic ne,
-                input logic regdst, lbu, link,
+                input logic regdst, lbu, link,spregwrite,
                 input logic regwrite, jump,jr, half,b,
                 input logic [3:0] alucontrol,
                 output logic zero,
@@ -24,6 +24,7 @@ module datapath(input logic clk, reset,
     logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
     logic [31:0] one_byte_result_sign_extended;
 
+    logic [31:0]Q,R,rdflo, rdfhi;
 
     // next PC logic
     flopr #(32) pcreg(clk, reset, pcnext, pc);
@@ -54,7 +55,9 @@ module datapath(input logic clk, reset,
 
     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
                 writereg, result, srca, writedata);
+    divufile divu(srca,writedata,Q,R,finish); //we add module for dividing  
 
+    spregfile spr(clk,spregwrite,Q,R,rdflo, rdfhi);//we add module for special reg for restoting data in mult and div
     mux2 #(5) wrmux(instr[20:16], instr[15:11],
                     regdst, outwrite);
     mux2 #(5) linkmux(outwrite, 5'b11111, link, writereg);
