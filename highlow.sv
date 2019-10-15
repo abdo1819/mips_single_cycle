@@ -9,6 +9,6 @@ logic [63:0] highlow;
 always_ff @(posedge clk)
     if (we) highlow <= wd;
 
-assign rd = (ra)? highlow[63:32] : highlow[31:0];
+      assign rd = (ra)? highlow[31:0] : highlow[63:32];
 
 endmodule
