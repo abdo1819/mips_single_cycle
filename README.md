@@ -45,20 +45,20 @@ state|isntraction| team #  |comment            | doc
 ✔    |sllv       |     1   |                        |                               
 ☐    |divu       |     1   |                        |                               
 ☐    |mult       |     1   |                        |                               
-☐    |subu       |     1   |                        |                               
-☐    |bgtz       |     2   |                        |
-☐    |lhu        |     2   |                        |
-☐    |sllv       |     2   |**duplicate**           |
-☐    |srav       |     2   |                        |
-☐    |sltiu      |     2   |                        |
-☐    |xori       |     2   |                        |
-☐    |jalr       |     2   |                        |
+✔    |subu       |     1   |                        |                               
+✔    |bgtz       |     2   |                        |
+✔    |lhu        |     2   |                        |
+✔    |sllv       |     2   |**duplicate**           |
+✔    |srav       |     2   |                        |
+✔    |sltiu      |     2   |                        |
+✔    |xori       |     2   |                        |
+✔    |jalr       |     2   |                        |
 
 
 ## todo 
 - [ ] reduce mux2 count in datapath
 - [ ] try to implement the processor according to  mips release 6
-- [ ] and headings for this doc
+- [ ] add headings for this doc
 - [ ] find general way for testing
-- [ ] make schmatic for all instractions
+- [x] make schmatic for all instractions
 - [ ] orgnize files
