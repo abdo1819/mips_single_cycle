@@ -40,6 +40,10 @@
 # software binary files
 
 /*
+!/Doc*
+*.workspace
+*.DBK
+*.pdsbak
 !/*.gitignore
 ##
 # !*.qpf
@@ -55,6 +59,9 @@
 !*.sof
 !*.asm
 !*.dat
+!*.md
+!*.sv
+!*.pdf
 ## tbd
 
 !*.tcl
@@ -65,7 +72,6 @@
 
 # ignore compilation output of ModelSim
 *.mti
-# *.dat
 *.dbs
 *.psm
 *.bak
@@ -73,7 +79,6 @@
 *.jpg
 *.html
 *.bsf
-*.pdf
 # ignore simulation output of ModelSim
 wlf*
 *.wlf
@@ -85,3 +90,4 @@ sc_dpiheader.h
 vsim.dbg
 
 # End of https://www.gitignore.io/api/modelsim,alteraquartusii
+Doc/schematic__001 copy.pdsprj

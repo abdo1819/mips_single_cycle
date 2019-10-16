@@ -26,12 +26,12 @@ module datapath(input logic clk, reset,
     logic [31:0] half_result_extended, half_result_extended0;
     logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
     logic [31:0] one_byte_result_sign_extended;
-	logic [63:0] specwd
-    logic [31:0] firstresult
+	logic [63:0] specwd;
+    logic [31:0] firstresult;
 logic [63:0] bigresult;
     logic [31:0] highlowout;
 
-	mux #(64) resultormove({srca,srca}, bigresult, resmove, specwd);
+	mux2 #(64) resultormove({srca,srca}, bigresult, resmove, specwd);
 	
 	highlow hl(clk, spregwrite, spaddr, specwd, highlowout);
 
@@ -50,7 +50,7 @@ logic [63:0] bigresult;
         extnext ext0(result_T[15:0], half_result_extended0);
     //mux after the halfword
    // mux2 #(32) halfmux(result_T,half_result_extended,half,hw_dataMemeoryOutput);
-      mux3 #(32) halfmux(result_T,half_result_extended, half_result_extended0,half,hw_dataMemeoryOutput);
+    mux3 #(32) halfmux(result_T,half_result_extended, half_result_extended0,half,hw_dataMemeoryOutput);
     // one byte
     signex #(24,8) se3(result_T[7:0], one_byte_result_sign_extended);
     //mux after the one byte word
