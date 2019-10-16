@@ -45,7 +45,7 @@ always_comb
         5'b10001: y=(b>>>shamt); // sra
         5'b10010: y = ( b << (a[4:0]) ); //sllv
         5'b10011: result = $signed(a) * $signed(b);  //mult
-
+        5'b10100: result = a * b; //multu
 
 
         default: y=0;
