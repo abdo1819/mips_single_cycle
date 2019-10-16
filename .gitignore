@@ -40,6 +40,10 @@
 # software binary files
 
 /*
+!/Doc*
+*.workspace
+*.DBK
+*.pdsbak
 !/*.gitignore
 ##
 # !*.qpf
@@ -68,7 +72,6 @@
 
 # ignore compilation output of ModelSim
 *.mti
-# *.dat
 *.dbs
 *.psm
 *.bak
@@ -76,7 +79,6 @@
 *.jpg
 *.html
 *.bsf
-*.pdf
 # ignore simulation output of ModelSim
 wlf*
 *.wlf
