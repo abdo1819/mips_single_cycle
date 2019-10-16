@@ -60,5 +60,5 @@ state|isntraction| team #  |comment            | doc
 - [ ] try to implement the processor according to  mips release 6
 - [ ] add headings for this doc
 - [ ] find general way for testing
-- [ ] make schmatic for all instractions
+- [x] make schmatic for all instractions
 - [ ] orgnize files
