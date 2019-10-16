@@ -29,6 +29,8 @@ always_comb
             6'b000111: alucontrol <= 5'b01101; // srav
             6'b000100: alucontrol <= 5'b10010; // sllv
             6'b000011: alucontrol <= 5'b10001; // sra
+	    6'b011000: alucontrol <= 5'b10010; //mult
+	    6'b011001: alucontrol <= 5'b10011; //multu
             default: alucontrol <= 5'bxxxxx; // ???
         endcase
     endcase
