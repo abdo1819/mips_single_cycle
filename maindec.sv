@@ -19,7 +19,8 @@ logic [28:0] controls;
 
 
 assign {regwrite, regdst, alusrc, branch, memwrite,
-        memtoreg, jump,jr, aluop, ne, half, b, lbu, link, spregwrite,fpu_control,fpu_mem_write,fp_regwrite,mem_to_fp,fp_regdst} = controls;
+        memtoreg, jump,jr, aluop, ne, half, b, lbu, link, spregwrite, fpu_control, fpu_mem_write 
+                                                                    ,fp_regwrite ,mem_to_fp ,fp_regdst} = controls;
 
 
 always_comb
@@ -31,10 +32,12 @@ if((op == 0) && (funct==6'b001000)) begin
      end
 	 else if( op == 6'b010001 ) begin
 		case(funct)
-			6'b000000: controls <= 29'b00000000000000000000000000011; // fpu add
-			6'b000001: controls <= 29'b00000000000000000000000001011; // fpu subtract 
-			6'b000010: controls <= 29'b00000000000000000000000010011; // fpu multi
-			6'b000001: controls <= 29'b00000000000000000000000011011; // fpu division
+			6'b000000: controls <= 29'b00000000000000000000000000101; // fpu add
+			6'b000001: controls <= 29'b00000000000000000000000010101; // fpu subtract 
+			6'b000010: controls <= 29'b00000000000000000000000100101; // fpu multi
+			6'b000001: controls <= 29'b00000000000000000000000110101; // fpu division
+			6'b110001: controls <= 29'b000100000000000000000xxxx0110; // fpu load word
+			6'b110001: controls <= 29'b000100100000000000000xxxx1000; // fpu save word
 		endcase
 	 end
 

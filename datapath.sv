@@ -92,8 +92,8 @@ logic [63:0] bigresult;
     
     
     // Write data mux selector, either from regfile or fpregfile
-  mux2 #(32) fpmemmux(rd2,fpu_out,fp_mem_selector,writedata); //overwrite rd2??
-	mux2 #(32) fw3(readdata,fpu_out,mem_to_fp,fp_wd3);
+  mux2 #(32) fpmemmux(rd2,fp_srcb,fp_mem_selector,writedata); //overwrite rd2??
+	mux2 #(32) fw3(fpu_out,readdata,mem_to_fp,fp_wd3);
 	mux2 #(5) fwreg(instr[20:16],instr[15:11],fp_regdst,write_fpreg);
     /* fpu and fpureg file  
      note that mux that choose between regfile write data and fpwrite data isn't implemented yet
