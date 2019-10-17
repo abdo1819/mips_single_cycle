@@ -36,8 +36,8 @@ if((op == 0) && (funct==6'b001000)) begin
 			6'b000001: controls <= 29'b00000000000000000000000010101; // fpu subtract 
 			6'b000010: controls <= 29'b00000000000000000000000100101; // fpu multi
 			6'b000001: controls <= 29'b00000000000000000000000110101; // fpu division
-			6'b110001: controls <= 29'b000100000000000000000xxxx0110; // fpu load word
-			6'b110001: controls <= 29'b000100100000000000000xxxx1000; // fpu save word
+			//6'b110001: controls <= 29'b000100000000000000000xxxx0110; // fpu load word
+			//6'b110001: controls <= 29'b000100100000000000000xxxx1000; // fpu save word
 		endcase
 	 end
 
@@ -67,6 +67,8 @@ begin
         6'b100101: controls <= 29'b10010001000000010000000000000; //lhu
         6'b101001: controls <= 29'b00010100000000000000000000000; // sh
         6'b101000: controls <= 29'b00010110000000000000000000000; // sb
+    			 6'b110001: controls <= 29'b00010000000000000000000000110; // fpu load word
+			  6'b110001: controls <= 29'b00010010000000000000000001000; // fpu save word
 		
 					
 		
