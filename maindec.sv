@@ -26,7 +26,7 @@ always_comb
         6'b000000: 
         begin
             // RTYPE
-            controls[21] <= ~(funct[4] | funct[3] & ~funct[5]); //regwrite
+            controls[21] <= funct[5] | ~funct[4]&~funct[3] | ~funct[3]&~funct[0]; //regwrite
             controls[20:13] <= 8'b10000000;                     //regdst to jump
             controls[12] <= ~funct[5] & ~funct[4] & funct[3] & ~funct[2] & ~funct[1]; //jr
             controls[11:3] <= 9'b111100000;                    //aluop to lbu
