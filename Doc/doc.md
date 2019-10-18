@@ -1,18 +1,19 @@
-Table of Content
-[TOC]
+<style>h1 { page-break-before: always; }</style>
 
-# Addiu logic instruction:
+[toc]
+
+# Addiu logic instruction
 
 The **addiu** instruction does a anddition of two 32-bit . At
 run time the 16-bit immediate operand is sigen extended to make it a 32-bit operand. the following is a machine code description for addiu:
 
 ```assembly
-addiu \$rt, \$rs, immed
+addiu rt, rs, immed
 ```
-## implementation:
+
+## implementation
 
 this design is based on the fact that addiu is identical to addi with deffrent overflow behavior
-
 
 sign | value
 ---- | ----
@@ -26,26 +27,36 @@ Jump | 0
 jr | 0
 aluop | 0000
 
+\newpage
+
 ## schmatic
 
 ![alt text](0001.jpg)
-## jr : R-type instruction with funct=8
-```
+
+\newpage
+
+# jr : R-type instruction with funct=8
+
+## assembly
+
+```assembly
 jr $rs
 ```
-example:
-```
 
-\breakpage
+## example
+
+```assembly
 jr $r7
 pc=$r7
 ```
+
+## implementation
+
 - puts rs : instr[25:21] value inside PC reg to perform unconditional jump via reg value
 - jr signal added to controller and is assigned to 1 when funct=8 and opcode =8
 - implementation :
-    - MUX with four selectors  with inputs (PC+4,PC Branch,srca,zeros) and selectros {pcsrc,jr}
-      - srca in code is RD1 in diagram(value of rs)
-    
+  - MUX with four selectors  with inputs (PC+4,PC Branch,srca,zeros) and selectros {pcsrc,jr}
+    - srca in code is RD1 in diagram(value of rs)
 
 | jr   | pcsrc | output    |
 | :--- | ----- | --------- |
@@ -54,36 +65,46 @@ pc=$r7
 | 1    | 0     | srca      |
 | 1    | 1     | zeros     |
 
-## lbu : I-TYPE instruction with OPCODE = 6'b(100100)
-```
+\newpage
+
+# lbu : I-TYPE instruction with OPCODE = 6'b(100100)
+
+## assembly
+
+```assembly
 lbu $rt, imm($rs)
 ```
-example:
-```
+
+## example
+
+```assembly
 lbu $r7  82($r3)
 r7=memory[82/4+r3]
 r3 is base address and imm is offest
 ```
+
+## implementation
+
 - lbu signal added to control unit  and is assigned to 1 when OPCODE = 6'b(100100) to write value at base address ```rs``` with offest  ```imm ```
 
-    - implementation :
-      
-        - MUX with four selectors  with inputs (alu output ,output of data memory,output of data memory [7:0],zeros) and selectros {memtoreg,lbu}
-        
-          
-        
-        | memtoreg | lbu  | output                          |
-        | :------- | ---- | ------------------------------- |
-        | 0        | 0    | alu output                      |
-        | 0        | 1    | Data memory                     |
-        | 1        | 0    | zeroext(Data memory from [7:0]) |
-        | 1        | 1    | zeros                           |
-    
-       ![diagram](sch.bmp)
+- MUX with four selectors  with inputs (alu output ,output of data memory,output of data memory [7:0],zeros) and selectros {memtoreg,lbu}
+
+| memtoreg | lbu  | output                          |
+| :------- | ---- | ------------------------------- |
+| 0        | 0    | alu output                      |
+| 0        | 1    | Data memory                     |
+| 1        | 0    | zeroext(Data memory from [7:0]) |
+| 1        | 1    | zeros                           |
+
+## schmatic
+
+![diagram](sch.svg)
+
+\newpage
 
 # Load half and load byte
 
-### introduction:
+## introduction
 
 a "Load half" and "Load byte" implementation using MIPS micro-architecture was built upon Harris design in their book (reference)
 
@@ -98,16 +119,16 @@ the following is a machine code description for lh and lb
  lb: 100000 $regRefearingToMemAddress $storeReg iiiiiiii iiiiiiii
 ```
 
-### Recipe:
+## Recipe
 
-#### Items/Pins:
+### Items/Pins
 
 1. pin_b (byte) :  used as a selector for mux[2]
 2. half (half-word) : used as a selector for mux[1]
 3. mux[1] (multiplexer): a multiplexer provide an option to full word or half word
 4. mux[2] (multiplexer): a multiplixer provide an option to mux[1] or one byte
 
-#### implementation:
+### implementation
 
 this design is based on the fact that `lw` was already implemented and working well so why not to reuse it? at the output of  **MemToReg** multiplexer (`lw`'s output) i've used two multiplexers mux[1] and mux [2]
 
@@ -125,19 +146,23 @@ mux[2] will chose from mux[1] output and a sign-extended one byte `{24{8-bits[7]
 | 0              | output of mux[2] equals mux[1]                 |
 | 1              | output of mux[2] equals sign extended one byte |
 
-#### schematic:
+#### schematic
 
-![alt text](0001.jpg "Schematic")
+![lh_lb ](0001.jpg "Schematic")
 
 #### Code:
-refearing to the diff [file](https://github.com/A-Siam/lhlb-mips/blob/master/diff.diff
-) to make a quick review to what i've changed/added 
-### Reference:
+
+refearing to the diff [file](diff.diff) to make a quick review to what i've changed/added 
+
+### Reference
 
 Digital design and computer architecture by David and Sarah Harris
+
+\newpage
+
 #  Store half and store byte
 
-### introduction:
+## introduction
 
 a "store half" and "store byte" implementation using MIPS micro-architecture was built upon Harris design in their book (reference)
 
@@ -152,7 +177,7 @@ the following is a machine code description for sh and sb
  sb: 101000  $regRefearingToMemAddress $storeReg iiiiiiii iiiiiiii
 ```
 
-#### implementation:
+## implementation
 
 this design is based on the fact that `sw` was already implemented and working well so why not to reuse it? at the   controller we make the **MemWr pin** 2 bits and  **WE pin** also 2 bits,
 
@@ -165,26 +190,31 @@ in `sw`the  alu result  is  address  [**32** bit] of the word and to move to the
 | 1 0              | store half word , {a[1],4'b0000}  uses the second LSB as an indeicator to the upper or lower word starting point which is an intuitive approuch to reach the half word |
 | 1 1              | store byte , {a[1:0],3'b000} uses the first and second LSB as an indeicator to the specified byte starting point which is an intuitive approuch to reach the byte |
 
+\newpage
 
-#### schematic:
+## schematic
 
-!["sh sb image"](https://raw.githubusercontent.com/abdo1819/arch_lab09/master/shsb.bmp "Schematic")
+!["sh sb image"](shsb.svg "Schematic")
 
-#### Code:
+## Code
 
-refearing to the diff [file](https://github.com/abdo1819/arch_lab09/blob/master/diff__sh_sb.diff)
+refearing to the diff [file](diff__sh_sb.diff)
  to make a quick review to what i've changed/added 
 
-### Reference:
+### Reference
 
 Digital design and computer architecture by David and Sarah Harris
+
+\newpage
+
 # Shift Word Left Logical Variable
 
-## introduction:
+## introduction
 
 sllv an (R type) instraction for shifting left a word by varible number
 
-### machine code
+## machine code
+
 ![sllv machine code divsion](img/sllv_machine.png)
 
 | opcode | function|
@@ -192,16 +222,21 @@ sllv an (R type) instraction for shifting left a word by varible number
 | 000000 | 000100 |
 
 ### asembly format
+
 ```asm
 sllv rd, rs, rt
 ```
+
 ## operation
+
 sllv would shit the value in reg(rs) ,by a number stored in low five bits in reg(rt),saving result in reg(rd)
 
 ## implentaion
+
 - add sllv operation in alu 
 
 ### controls [r-type_controls](../control.csv)
+
 |signal 	|value|
 |-----------|-----|
 |REgWrite   |	1|
@@ -211,39 +246,39 @@ sllv would shit the value in reg(rs) ,by a number stored in low five bits in reg
 |MemWrite   |	0|
 |MemtoReg   |	0|
 |Jump   |	0|
-|jr |	0|
-|aluop  |	1111|
-|ne |	0|
-|half   |	0|
-|b  |	0|
-|lbu    |	0|
-|link   |	0|
-## code changes:
+
+## code changes
 
 ### [alu.sv](../alu.sv)
+
 add shift left operationg
+
 ```systemverlog
 y = b << a[4:0]
 ```
+
 ### [aludec.sv](../aludec.sv)
 
-chage the alucontrol to sllv 
+chage the alucontrol to sllv
 
 | function    | alucontrol|
 |-------------|----------------|
 | 000100      |  < sllv operation >|
 
-#### schematic:
+### schematic
 
 ![alt text](0001.jpg "Schematic")
 
-
 ### Reference:
+
 [MIPS® Architecture for Programmers set manulal 2016](https://s3-eu-west-1.amazonaws.com/downloads-mips/documents/MD00086-2B-MIPS32BIS-AFP-6.06.pdf) 
 `pg377`
-# Shift Right Logical:
 
-## introduction:
+\newpage
+
+# srl Shift Right Logical
+
+## introduction
 
 MIPS also has a **shift right logical** instruction. It moves bits to
 the right by a number of positions less than 32. The high-order bit gets
@@ -255,11 +290,12 @@ integer divide by two. A right shift by N positions performs an integer
 divide by 2^N^.
 
 the following is a machine code description for Srl:
+
 ```assembly
 srl \$rs \$rt shift
 ```
 
-## Recipe:
+## implementation
 
 mux\[\] (multiplexer): It would select Read data 1(rs) if we\'re not
 doing a shift operation, and it would select( rt) if we are doing a
@@ -269,13 +305,6 @@ branch Instruction: we would need to branch Instruction\[10:6\] (the
 shift amount) off of Instruction\[15:0\], and Instruction\[10:6\] would
 then be fed into the other port of the ALU
 
-### implementation:
+## schematic:
 
-| option (shift) | operation |
-|----------------|------------------------------|
-|0               |  output of mux\[1\] equals not doing a shift   |
-|1               |  output of mux\[1\] equals doing a shift operation. |
-
-### schematic:
-
-![alt text](srl.BMP)
+![alt text](srl.svg)
