@@ -31,7 +31,7 @@ aluop | 0000
 
 ## schmatic
 
-![alt text](0001.jpg)
+![alt text](img/0001.jpg)
 
 \newpage
 
@@ -98,7 +98,7 @@ r3 is base address and imm is offest
 
 ## schmatic
 
-![diagram](sch.svg)
+![diagram](img/sch.svg)
 
 \newpage
 
@@ -148,7 +148,7 @@ mux[2] will chose from mux[1] output and a sign-extended one byte `{24{8-bits[7]
 
 #### schematic
 
-![lh_lb ](0001.jpg "Schematic")
+![lh_lb ](img/0001.jpg "Schematic")
 
 #### Code:
 
@@ -194,7 +194,7 @@ in `sw`the  alu result  is  address  [**32** bit] of the word and to move to the
 
 ## schematic
 
-!["sh sb image"](shsb.svg "Schematic")
+!["sh sb image"](img/shsb.svg "Schematic")
 
 ## Code
 
@@ -267,7 +267,7 @@ chage the alucontrol to sllv
 
 ### schematic
 
-![alt text](0001.jpg "Schematic")
+![alt text](img/0001.jpg "Schematic")
 
 ### Reference:
 
@@ -307,4 +307,4 @@ then be fed into the other port of the ALU
 
 ## schematic:
 
-![alt text](srl.svg)
+![alt text](img/srl.svg)
