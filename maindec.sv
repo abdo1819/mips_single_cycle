@@ -78,5 +78,5 @@ begin
         default:   controls <= 29'bxxxxxxxxxxxxxxxxxxx; // illegal op
 
     endcase
-    
+end
 endmodule
