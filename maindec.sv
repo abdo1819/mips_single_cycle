@@ -15,7 +15,7 @@ module maindec(input logic [5:0] op,funct,
 	output logic mem_to_fp,fp_regdst);
 
 
-logic [31:0] controls;
+	logic [29:0] controls;
 
     assign resmove = funct[3];
     assign spaddr = funct[1];
