@@ -34,14 +34,10 @@ module datapath(input logic clk, reset,
     logic [31:0] half_result_extended, half_result_extended0;
     logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
     logic [31:0] one_byte_result_sign_extended;
-<<<<<<< HEAD
     logic [31:0] fp_srca,fp_srcb;
-	
-=======
 	logic [63:0] specwd;
     logic [31:0] firstresult;
->>>>>>> df4f7eb36bd47aac75aecde3e105b556b847a95e
-logic [63:0] bigresult;
+    logic [63:0] bigresult;
     logic [31:0] highlowout;
 
 	mux2 #(64) resultormove({srca,srca}, bigresult, resmove, specwd);

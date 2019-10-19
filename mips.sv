@@ -8,8 +8,7 @@ module mips(input logic clk, reset,
 	                 
             );
 
-<<<<<<< HEAD
-logic memtoreg, ne, regdst,regwrite, jump,jr, pcsrc, zero, b, link, spregwrite; // controller output
+logic memtoreg, ne, regdst,regwrite, jump,jr, pcsrc, zero, b, link, spregwrite,mf, resmove, spaddr; // controller output
 
  // fp
  logic [3:0] fpu_control;
@@ -17,9 +16,6 @@ logic memtoreg, ne, regdst,regwrite, jump,jr, pcsrc, zero, b, link, spregwrite; 
  logic fp_regwrite;
  logic mem_to_fp;
  
-=======
-logic memtoreg, ne, regdst,regwrite, jump,jr, pcsrc, zero, b, link, spregwrite, mf, resmove, spaddr;
->>>>>>> df4f7eb36bd47aac75aecde3e105b556b847a95e
 
 logic [1:0] alusrc, half;
 
@@ -28,11 +24,7 @@ logic [4:0] alucontrol;
 controller c(instr[31:26], instr[5:0], zero,
             memtoreg, memwrite, pcsrc,
             alusrc, regdst, regwrite, jump,jr, ne, half, b,
-<<<<<<< HEAD
-             alucontrol,lbu, link, spregwrite,fpu_control,fpu_mem_write,fp_regwrite,mem_to_fp,fp_regdst);
-=======
-             alucontrol,lbu, link, spregwrite, mf, resmove, spaddr);
->>>>>>> df4f7eb36bd47aac75aecde3e105b556b847a95e
+             alucontrol,lbu, link, spregwrite, mf, resmove, spaddr,fpu_control,fpu_mem_write,fp_regwrite,mem_to_fp,fp_regdst);
 
 datapath dp(clk, reset, memtoreg, pcsrc,
             alusrc, ne, regdst, lbu, link, regwrite, jump,jr, half,b, spregwrite, mf, resmove, spaddr,
