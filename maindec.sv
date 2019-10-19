@@ -21,7 +21,7 @@ module maindec(input logic [5:0] op,funct,
     assign spaddr = funct[1];
 
 assign {regwrite, regdst, alusrc, branch, memwrite,
-        memtoreg, jump,jr, aluop, ne, half, b, lbu, link, spregwrite, fpu_control, fpu_mem_write 
+        memtoreg, jump,jr, aluop, ne, half, b, lbu, link, spregwrite, mf, fpu_control, fpu_mem_write 
                                                                     ,fp_regwrite ,mem_to_fp ,fp_regdst} = controls;
 
 
