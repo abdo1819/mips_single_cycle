@@ -1,4 +1,3 @@
-<style>h1 { page-break-before: always; }</style>
 
 [toc]
 
