@@ -1,4 +1,4 @@
-module testbench();
+module testbench_sb();
 
 logic clk;
 logic reset;
@@ -26,10 +26,10 @@ always @(negedge clk)
         if (memwrite) begin
             if (dataadr === 80 & writedata === 32'b00000000000000001010101011111111) begin
                     $display("Simulation succeeded");
-                    $stop;
+//$stop;
             end else if (dataadr !== 80) begin
                 $display("Simulation failed");
-                $stop;
+             //   $stop;
             end
         end
     end
