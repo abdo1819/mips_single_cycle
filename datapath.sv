@@ -12,23 +12,32 @@ module datapath(input logic clk, reset,
                 output logic [31:0] pc,
                 input logic [31:0] instr,
                 output logic [31:0] aluout, writedata,
-                input logic [31:0] readdata);
+                input logic [31:0] readdata,
+                
+                // fp
+                
+                
+                input logic [3:0] fpucontrol ,
+                
+                input logic fpu_mem_write,fp_regwrite,mem_to_fp,fp_regdst
+                );
 
-
-    logic [4:0] writereg;
+    logic [31:0] fpu_out;
+    logic [4:0] writereg,write_fpreg;
     logic [31:0] pcnext, pcnextbr, pcplus4, pcbranch,pcnextj;
     logic [31:0] signimm, signimmsh;
     logic [31:0] srca, srcb;
-    logic [31:0] result; // datamemory after the one byte design
+    logic [31:0] result,rd2,fp_wd3; // datamemory after the one byte design
     logic [31:0] result_T; 
     logic [31:0] bfresult ;
     logic [4:0] outwrite;
     logic [31:0] half_result_extended, half_result_extended0;
     logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
     logic [31:0] one_byte_result_sign_extended;
+    logic [31:0] fp_srca,fp_srcb;
 	logic [63:0] specwd;
     logic [31:0] firstresult;
-logic [63:0] bigresult;
+    logic [63:0] bigresult;
     logic [31:0] highlowout;
 
 	mux2 #(64) resultormove({srca,srca}, bigresult, resmove, specwd);
@@ -68,11 +77,11 @@ logic [63:0] bigresult;
     mux2 #(32) pcjrmux(pcnextj, srca, jr, pcnext);
 
     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
-                writereg, result, srca, writedata);
-
+                writereg, result, srca, rd2);
+     
     mux2 #(5) wrmux(instr[20:16], instr[15:11],
                     regdst, outwrite);
-    mux2 #(5) linkmux(outwrite, 5'b11111, link, writereg);
+   mux2 #(5) linkmux(outwrite, 5'b11111, link, writereg);
     // mux2 #(32) resmux(aluout, readdata, memtoreg, result_T);
     mux4 #(32) resmux(aluout, readdata, {24'b0,readdata[7:0]},{32'bx}, {lbu,memtoreg},result_T);////hey....:)from mux 2 to 4 and zero ext is modified with parameters ...good luck :)
 
@@ -82,7 +91,24 @@ logic [63:0] bigresult;
     logic [31:0] zeroimm;
     extnext ex(instr[15:0], zeroimm);
     // ALU logic
-    mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
+    mux2 #(32) srcbmux(rd2, extimm, alusrc[0], srcb);
     mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
-     alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero, bigresult); //inst[10:6] shamt
+    alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero, bigresult); //inst[10:6] shamt
+    
+    
+    // Write data mux selector, either from regfile or fpregfile
+  mux2 #(32) fpmemmux(rd2,fp_srcb,fpu_mem_write,writedata); //overwrite rd2??
+	mux2 #(32) fw3(fpu_out,readdata,mem_to_fp,fp_wd3);
+	mux2 #(5) fwreg(instr[20:16],instr[15:11],fp_regdst,write_fpreg);
+    /* fpu and fpureg file  
+     note that mux that choose between regfile write data and fpwrite data isn't implemented yet
+     */
+	 
+     fpregfile frf(clk, fp_regwrite, instr[25:21], instr[20:16],
+                write_fpreg, fp_wd3, fp_srca, fp_srcb);
+                
+     fpu fpu(clk,fpucontrol,fp_srca,fp_srcb,fpu_out);
+     
+     
+     
 endmodule
