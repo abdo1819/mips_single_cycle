@@ -20,14 +20,14 @@ instractions |sll|lui|slti|blez|srlv|ori|xori|jr
 ### weak 1
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
-✔    |jr         |     1   |                        |[jr__lbu.md](Doc/README__jr___lbu.md) 
+✔    |jr         |     1   |/                       |[jr__lbu.md](Doc/README__jr___lbu.md) 
 ✔    |jal        |     1   |                        | 
-✔    |bne        |     1   |*already implemented*   | 
+✔    |bne        |     1   |                        | 
 ✔    |andi       |     1   |                        |[andi.md](Doc/andi.md)
-✔    |srl        |     1   |                        |[srl.md](Doc/srl.md)
-✔    |lh         |     1   |                        |[lb___lh.md](Doc/README___lb___lh.md)
-✔    |lb         |     1   |                        |[lb___lh.md](Doc/README___lb___lh.md)
-✔    |lbu        |     1   |                        |[jr__lbu.md](Doc/README__jr___lbu.md)
+✔    |srl        |     1   |/                       |[srl.md](Doc/srl.md)
+✔    |lh         |     1   |/                       |[lb___lh.md](Doc/README___lb___lh.md)
+✔    |lb         |     1   |/                       |[lb___lh.md](Doc/README___lb___lh.md)
+✔    |lbu        |     1   |/                       |[jr__lbu.md](Doc/README__jr___lbu.md)
 ✔    |sll        |     2    |                       |
 ✔    |lui        |     2    |                       |
 ✔    |slti       |     2    |                       |
@@ -39,9 +39,9 @@ state|isntraction| team #  |comment            | doc
 ### weak 2
 state|isntraction| team #  |comment            | doc 
 -----|-----------|---------|-------------------|---------
-✔    |addiu      |     1   |identical to addi       |    
-✔    |sh         |     1   |                        |                              
-✔    |sb         |     1   |                        |                              
+✔    |addiu      |     1   |/                  |    
+✔    |sh         |     1   |/                       |                              
+✔    |sb         |     1   |/                       |                              
 ✔    |sra        |     1   |                        |                               
 ✔    |sllv       |     1   |                        |                               
 ☐    |divu       |     1   |                        |                               
