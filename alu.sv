@@ -5,7 +5,13 @@ module alu(input logic [31:0] a,b,
             output logic  zero,
             output logic [63:0] result);
 
+logic [31:0] Q, Q1, R, R1;
+logic finish, finish1;
 
+
+
+divfile dv(a,b,Q,R,finish);
+divufile dvu(a,b,Q1,R1,finish1);
 
 always_comb
         case(f)
@@ -46,7 +52,8 @@ always_comb
         5'b10011: result = $signed(a) * $signed(b);  //mult
         5'b10100: y=~(a|b); // nor
         5'b10101: result = a * b; //multu
-
+        5'b10110: begin result[31:0] <= Q; result[63:32] <= R; end //div
+        5'b10111: begin result[31:0] <= Q1; result[63:32] <= R1; end //divu
 
 
         default: y=0;
