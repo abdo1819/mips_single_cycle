@@ -32,6 +32,8 @@ always_comb
             6'b011000: alucontrol <= 5'b10011; // mult
             6'b100111: alucontrol <= 5'b10100; //nor
             6'b011001: alucontrol <= 5'b10101; //multu
+	    6'b011010: alucontrol <= 5'b10110; //div
+            6'b011011: alucontrol <= 5'b10111; //divu
             default: alucontrol <= 5'bxxxxx; // ???
         endcase
     endcase
