@@ -1,0 +1,459 @@
+diff --git a/alu.sv b/alu.sv
+index d3c801b..1fd9b00 100644
+--- a/alu.sv
++++ b/alu.sv
+@@ -1,23 +1,25 @@
+ module alu(input logic [31:0] a,b,
+-            input logic [2:0] f,
++            input logic [4:0] shamt,
++            input logic [3:0] f,
+             output logic [31:0] y,
+             output logic  zero);
+ 
+ 
+ always_comb
+         case(f)
+-        3'b000: y=a&b;
+-        3'b001: y=a|b;
+-        3'b010: y=a+b;
+-        3'b011: y=0;
+-        3'b100: y=a+(~b);
+-        3'b101: y=a|(~b);
+-        3'b110: y=a-b;
+-        3'b111:
++        4'b0000: y=a&b;
++        4'b0001: y=a|b;
++        4'b0010: y=a+b;
++        4'b0011: y=0;
++        4'b0100: y=a+(~b);
++        4'b0101: y=a|(~b);
++        4'b0110: y=a-b;
++        4'b0111:
+         begin
+                 y=a-b;
+                 y=y[31]?'b1:'b0;
+         end
++        4'b1000: y=(b>>shamt); //srl
+         default: y=0;
+         endcase
+ 
+diff --git a/aludec.sv b/aludec.sv
+index 0f02282..7da8acd 100644
+--- a/aludec.sv
++++ b/aludec.sv
+@@ -1,18 +1,21 @@
+ module aludec(input logic [5:0] funct,
+-                input logic [1:0] aluop,
+-                output logic [2:0] alucontrol);
+-
++                input logic [2:0] aluop,
++                output logic [3:0] alucontrol,output logic jr);
++assign jr=funct==8;
+ always_comb
++	
+     case(aluop)
+-        2'b00: alucontrol <= 3'b010; // add (for lw/sw/addi)
+-        2'b01: alucontrol <= 3'b110; // sub (for beq)
+-        2'b11: alucontrol <= 3'b001;
++        3'b000: alucontrol <= 4'b0010; // add (for lw/sw/addi)
++        3'b001: alucontrol <= 4'b0110; // sub (for beq)
++        3'b011: alucontrol <= 4'b0001; // or (for ori)
++        3'b100: alucontrol <= 4'b0000; // and (for andi)
+         default: case(funct) // R-type instructions
+-            6'b100000: alucontrol <= 3'b010; // add
+-            6'b100010: alucontrol <= 3'b110; // sub
+-            6'b100100: alucontrol <= 3'b000; // and
+-            6'b100101: alucontrol <= 3'b001; // or
+-            6'b101010: alucontrol <= 3'b111; // slt
++            6'b100000: alucontrol <= 4'b0010; // add
++            6'b100010: alucontrol <= 4'b0110; // sub
++            6'b100100: alucontrol <= 4'b0000; // and
++            6'b100101: alucontrol <= 4'b0001; // or
++            6'b101010: alucontrol <= 4'b0111; // slt
++            6'b000010: alucontrol <= 4'b1000; // srl
+             default: alucontrol <= 3'bxxx; // ???
+         endcase
+     endcase
+diff --git a/controller.sv b/controller.sv
+index 4ffcc48..1be32cf 100644
+--- a/controller.sv
++++ b/controller.sv
+@@ -6,15 +6,18 @@ module controller(input logic [5:0] op, funct,
+                     output logic regdst, regwrite,
+                     output logic jump,
+                     output logic ne,
+-                    output logic [2:0] alucontrol);
++                    output logic half,
++                    output logic b,
++                    output logic [3:0] alucontrol,
++                    output logic jr,lbu, oneZero);
+ 
+-logic [1:0] aluop;
++logic [2:0] aluop;
+ logic branch;
+ 
+ maindec md(op, memtoreg, memwrite, branch,
+-            alusrc, regdst, regwrite, jump,ne, aluop);
++            alusrc, regdst, regwrite, jump,ne, half, b, aluop, lbu, oneZero);
+ 
+-aludec ad(funct, aluop, alucontrol);
++aludec ad(funct, aluop, alucontrol,jr);
+ 
+ logic  bne_rc;
+ assign bne_rc = ne ^ zero ;
+diff --git a/datapath.sv b/datapath.sv
+index 5d76392..450b6d6 100644
+--- a/datapath.sv
++++ b/datapath.sv
+@@ -2,9 +2,9 @@ module datapath(input logic clk, reset,
+                 input logic memtoreg, pcsrc,
+                 input logic [1:0] alusrc,
+                 input logic ne,
+-                input logic regdst,
+-                input logic regwrite, jump,
+-                input logic [2:0] alucontrol,
++                input logic regdst, jr, lbu,
++                input logic regwrite, jump, half,b, oneZero,
++                input logic [3:0] alucontrol,
+                 output logic zero,
+                 output logic [31:0] pc,
+                 input logic [31:0] instr,
+@@ -16,7 +16,12 @@ module datapath(input logic clk, reset,
+     logic [31:0] pcnext, pcnextbr, pcplus4, pcbranch;
+     logic [31:0] signimm, signimmsh;
+     logic [31:0] srca, srcb;
+-    logic [31:0] result;
++    logic [31:0] result; // datamemory after the one byte design
++    logic [31:0] result_T; 
++    logic [31:0] half_result_extended;
++    logic [31:0] hw_dataMemeoryOutput; // datamemory after the half word design
++    logic [31:0] one_byte_result_sign_extended;
++
+ 
+     // next PC logic
+     flopr #(32) pcreg(clk, reset, pcnext, pc);
+@@ -27,25 +32,40 @@ module datapath(input logic clk, reset,
+ 
+     adder pcadd2(pcplus4, signimmsh, pcbranch); //branch or jumb
+ 
+-    mux2 #(32) pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
++    //half
++    signext se2(result_T[15:0], half_result_extended); //extend sign
++    //mux after the halfword
++    mux2 #(32) halfmux(result_T,half_result_extended,half,hw_dataMemeoryOutput);
++    // one byte
++    signex #(24,8) se3(result_T[7:0], one_byte_result_sign_extended);
++    //mux after the one byte word
++    mux2 #(32) ob_mux(hw_dataMemeoryOutput,
++                    one_byte_result_sign_extended,
++                    b,
++                    result);
++
++    mux4 #(32) pcbrmux(pcplus4,srca, pcbranch,0, {pcsrc,jr}, pcnextbr);
+     mux2 #(32) pcmux(pcnextbr, {pcplus4[31:28],
+                     instr[25:0], 2'b00}, jump, pcnext);
+ 
+-    // register file logic
+     regfile rf(clk, regwrite, instr[25:21], instr[20:16],
+                 writereg, result, srca, writedata);
+ 
+     mux2 #(5) wrmux(instr[20:16], instr[15:11],
+                     regdst, writereg);
+-    mux2 #(32) resmux(aluout, readdata, memtoreg, result);
++    // mux2 #(32) resmux(aluout, readdata, memtoreg, result_T);
++    mux4 #(32) resmux(aluout, readdata, {24'b0,readdata[7:0]},{32'bx}, {lbu,memtoreg},result_T);////hey....:)from mux 2 to 4 and zero ext is modified with parameters ...good luck :)
+ 
+     signext se(instr[15:0], signimm); //extend sign
+ 
+     logic [31:0] extimm;
+-    logic [31:0] zeroimm;
++    logic [31:0] zeroimm, oneimm, logicimm;
++    extone exo(instr[15:0], oneimm);
+     extnext ex(instr[15:0], zeroimm);
+     // ALU logic
+     mux2 #(32) srcbmux(writedata, extimm, alusrc[0], srcb);
+-    mux2 #(32) extimux(signimm ,  zeroimm, alusrc[1], extimm);
+-    alu alu(srca, srcb, alucontrol, aluout, zero);
++    mux2 #(32) extonezero(oneimm, zeroimm, oneZero, logicimm);
++    mux2 #(32) extimux(signimm ,  logicimm, alusrc[1], extimm);
++
++    alu alu(srca, srcb, instr[10:6], alucontrol, aluout, zero); //inst[10:6] shamt
+ endmodule
+\ No newline at end of file
+diff --git a/extnext_temp.sv b/extnext_temp.sv
+new file mode 100644
+index 0000000..7fd2f3c
+--- /dev/null
++++ b/extnext_temp.sv
+@@ -0,0 +1,7 @@
++module extnext_temp(input logic [4:0] a,
++                output logic [31:0] y);
++
++logic zero;
++assign zero = 0;
++assign y = {{27{zero}}, a};
++endmodule
+\ No newline at end of file
+diff --git a/extone.sv b/extone.sv
+new file mode 100644
+index 0000000..d674122
+--- /dev/null
++++ b/extone.sv
+@@ -0,0 +1,7 @@
++module extone(input logic [15:0] a,
++                output logic [31:0] y);
++
++logic one;
++assign one = 1;
++assign y = {{16{one}}, a};
++endmodule
+\ No newline at end of file
+diff --git a/maindec.sv b/maindec.sv
+index b8b81b8..6b4ab07 100644
+--- a/maindec.sv
++++ b/maindec.sv
+@@ -5,24 +5,32 @@ module maindec(input logic [5:0] op,
+     output logic regdst, regwrite,
+     output logic jump,
+     output logic ne,
+-    output logic [1:0] aluop);
++    output logic half,
++    output logic b,
++    output logic [2:0] aluop,
++    output logic lbu, oneZero);
+ 
+-logic [10:0] controls;
++logic [15:0] controls;
+ 
+ assign {regwrite, regdst, alusrc, branch, memwrite,
+-        memtoreg, jump, aluop, ne} = controls;
++        memtoreg, jump, aluop, ne, half, b, lbu, oneZero} = controls;
+ 
+ 
+ always_comb
+     case(op)
+-        6'b000000: controls <= 11'b11000000100; // RTYPE
+-        6'b100011: controls <= 11'b10010010000; // LW
+-        6'b101011: controls <= 11'b00010100000; // SW
+-        6'b000100: controls <= 11'b00001000010; // BEQ
+-        6'b001000: controls <= 11'b10010000000; // ADDI
+-        6'b001101: controls <= 11'b10110000110; // ORI
+-        6'b000010: controls <= 11'b00000001000; // J
+-        6'b000101: controls <= 11'b00001000011;  // BNQ
+-        default: controls <= 9'bxxxxxxxxx; // illegal op
++        6'b000000: controls <= 16'b1100000001000001; // RTYPE
++        6'b100011: controls <= 16'b1001001000000001; // LW
++        6'b101011: controls <= 16'b0001010000000001; // SW
++        6'b000100: controls <= 16'b0000100000100001; // BEQ
++        6'b001000: controls <= 16'b1001000000000001; // ADDI
++        6'b001101: controls <= 16'b1011000001100001; // ORI
++        6'b000010: controls <= 16'b0000000100000001; // J
++        6'b000101: controls <= 16'b0000100000110001;  // BNQ
++        6'b100001: controls <= 16'b1001001000001001; // LH
++        6'b100000: controls <= 16'b1001001000001101; // LB
++        6'b100100: controls <= 16'b1001000000000011; // lbu
++        6'b001100: controls <= 16'b1011000010000000; //andi
++        default:   controls <= 16'bxxxxxxxxxxxxxxxx; // illegal op
++
+     endcase
+ endmodule
+\ No newline at end of file
+diff --git a/mips.sv b/mips.sv
+index c04a384..33cea3f 100644
+--- a/mips.sv
++++ b/mips.sv
+@@ -6,20 +6,20 @@ module mips(input logic clk, reset,
+             input logic [31:0] readdata);
+ 
+ logic memtoreg, ne, regdst,
+-    regwrite, jump, pcsrc, zero;
++    regwrite, jump, pcsrc, zero, half, b, oneZero;
+ 
+ logic [1:0] alusrc;
+ 
+-logic [2:0] alucontrol;
++logic [3:0] alucontrol;
+ 
+ controller c(instr[31:26], instr[5:0], zero,
+             memtoreg, memwrite, pcsrc,
+-            alusrc, regdst, regwrite, jump,ne,
+-            alucontrol);
++            alusrc, regdst, regwrite, jump, ne, half, b,
++            alucontrol, jr,lbu, oneZero);
+ 
+ datapath dp(clk, reset, memtoreg, pcsrc,
+-            alusrc, ne, regdst, regwrite, jump,
+-            alucontrol,
++            alusrc, ne, regdst, jr,lbu, regwrite, jump, half, b, oneZero,
++            alucontrol, 
+             zero, pc, instr,
+             aluout, writedata, readdata);
+ 
+diff --git a/mux4 #.sv b/mux4 #.sv
+new file mode 100644
+index 0000000..5999f97
+--- /dev/null
++++ b/mux4 #.sv	
+@@ -0,0 +1,14 @@
++module mux4 #(parameter WIDTH = 8)
++            (input logic [WIDTH-1:0] d0,d1,d2,d3,
++            input logic [1:0] s,
++            output logic [WIDTH-1:0] Y);
++
++    always_comb
++        case ( s )
++            2'b00: Y = d0;
++            2'b01: Y = d1;
++            2'b10: Y = d2;
++            2'b11: Y = d3;
++            default: Y = 16'hxxxx;
++        endcase
++endmodule
+\ No newline at end of file
+diff --git a/signex.sv b/signex.sv
+new file mode 100644
+index 0000000..3c834b6
+--- /dev/null
++++ b/signex.sv
+@@ -0,0 +1,8 @@
++//parameterized sign extenstion by abdullah khaled
++module signex #(parameter extamount = 16,parameter inputsize = 16)
++			   (input [inputsize-1:0]x,
++			   output [inputsize+extamount-1:0]o);
++
++assign o = {{extamount{x[inputsize-1]}},x};
++
++endmodule
+\ No newline at end of file
+diff --git a/testbench__andi.sv b/testbench__andi.sv
+new file mode 100644
+index 0000000..724a1be
+--- /dev/null
++++ b/testbench__andi.sv
+@@ -0,0 +1,37 @@
++module testbench__andi();
++
++logic clk;
++logic reset;
++logic [31:0] writedata, dataadr;
++logic memwrite;
++
++// instantiate device to be tested
++top dut (clk, reset, writedata, dataadr, memwrite);
++
++// initialize test
++initial
++    begin
++    reset <= 1; # 22; reset <= 0;
++    end
++
++// generate clock to sequence tests
++always
++    begin
++    clk <= 1; # 5; clk <= 0; # 5;
++    end
++
++// check results
++always @(negedge clk)
++    begin
++        if (memwrite) begin
++            if (dataadr === 84 & writedata === 241) begin
++                    $display("Simulation succeeded");
++                    $stop;
++            end else if (dataadr !== 80) begin
++                $display("Simulation failed");
++                $stop;
++            end
++        end
++    end
++
++endmodule
+\ No newline at end of file
+diff --git a/testbench__jr.sv b/testbench__jr.sv
+new file mode 100644
+index 0000000..63d5294
+--- /dev/null
++++ b/testbench__jr.sv
+@@ -0,0 +1,37 @@
++module testbench_lbu();
++
++logic clk;
++logic reset;
++logic [31:0] writedata, dataadr;
++logic memwrite;
++
++// instantiate device to be tested
++top dut (clk, reset, writedata, dataadr, memwrite);
++
++// initialize test
++initial
++    begin
++    reset <= 1; # 22; reset <= 0;
++    end
++
++// generate clock to sequence tests
++always
++    begin
++    clk <= 1; # 5; clk <= 0; # 5;
++    end
++
++// check results
++always @(negedge clk)
++    begin
++        if (memwrite) begin
++            if (dataadr === 84 & writedata === -33022) begin
++                    $display("Simulation succeeded");
++                //    $stop;
++            end else if (dataadr !== 80) begin
++                $display("Simulation failed");
++          //      $stop;
++            end
++        end
++    end
++
++endmodule
+\ No newline at end of file
+diff --git a/testbench__lhlb.sv b/testbench__lhlb.sv
+new file mode 100644
+index 0000000..86eb8d1
+--- /dev/null
++++ b/testbench__lhlb.sv
+@@ -0,0 +1,37 @@
++module testbench_lhlb();
++
++logic clk;
++logic reset;
++logic [31:0] writedata, dataadr;
++logic memwrite;
++
++// instantiate device to be tested
++top dut (clk, reset, writedata, dataadr, memwrite);
++
++// initialize test
++initial
++    begin
++    reset <= 1; # 22; reset <= 0;
++    end
++
++// generate clock to sequence tests
++always
++    begin
++    clk <= 1; # 5; clk <= 0; # 5;
++    end
++
++// check results
++always @(negedge clk)
++    begin
++        if (memwrite) begin
++            if (dataadr === 80 & writedata === 32'b11111111111111111111111111111010) begin
++                    $display("Simulation succeeded");
++                    $stop;
++            end else if (dataadr !== 80) begin
++                $display("Simulation failed");
++                $stop;
++            end
++        end
++    end
++
++endmodule
+\ No newline at end of file
