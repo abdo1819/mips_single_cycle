@@ -1,7 +1,8 @@
 
-[toc]
+<!-- [toc] -->
+\newpage
 
-# Andi logic instruction:
+# Andi  _and immediate:
 
 The **andi** instruction does a bitwise AND of two 32-bit patterns. At
 run time the 16-bit immediate operand is padded on the left with zero
@@ -27,10 +28,11 @@ alu op 001100
 
 ## schmatic
 
-![alt text](img/srl.svg)
+![alt text](img/0001.jpg)
 
+\newpage
 
-# Addiu logic instruction
+# Addiu _ add immediate unsigned 
 
 The **addiu** instruction does a anddition of two 32-bit . At
 run time the 16-bit immediate operand is sigen extended to make it a 32-bit operand. the following is a machine code description for addiu:
@@ -63,7 +65,8 @@ aluop | 0000
 
 \newpage
 
-# jr : R-type instruction with funct=8
+# jr _jump regester 
+R-type instruction with funct=8
 
 ## assembly
 
@@ -95,7 +98,8 @@ pc=$r7
 
 \newpage
 
-# lbu : I-TYPE instruction with OPCODE = 6'b(100100)
+# lbu _ load byte unsigned
+I-TYPE instruction with OPCODE = 6'b(100100)
 
 ## assembly
 
@@ -128,9 +132,9 @@ r3 is base address and imm is offest
 
 ![diagram](img/sch.svg)
 
-\newpage
+\pagebreak
 
-# Load half and load byte
+# lh , lb  _ Load half and load byte
 
 ## introduction
 
@@ -188,7 +192,7 @@ Digital design and computer architecture by David and Sarah Harris
 
 \newpage
 
-#  Store half and store byte
+# sh, sb _ Store half and store byte
 
 ## introduction
 
@@ -235,7 +239,7 @@ Digital design and computer architecture by David and Sarah Harris
 
 \newpage
 
-# Shift Word Left Logical Variable
+# sllv _ Shift Word Left Logical Variable
 
 ## introduction
 
@@ -304,7 +308,7 @@ chage the alucontrol to sllv
 
 \newpage
 
-# srl Shift Right Logical
+# srl _ Shift Right Logical
 
 ## introduction
 
