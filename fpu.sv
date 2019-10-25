@@ -57,7 +57,5 @@ module fpu(input logic clk,
         default: o=32'bz;
         endcase
     end
-always @(*)
-$display("funct :%d o :%h a %h  b %h",funct ,o ,a,b);
-
+ 
     endmodule

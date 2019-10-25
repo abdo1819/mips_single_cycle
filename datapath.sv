@@ -105,10 +105,6 @@ module datapath(input logic clk, reset,
      */
      fpregfile frf(clk, fp_regwrite, instr[15:11], instr[20:16],write_fpreg, fp_wd3, fp_srca, fp_srcb);
      fpu fpu(clk,fpucontrol,fp_srca,fp_srcb,fpu_out);
-     always@(clk)
-            begin
-            if(fp_regwrite==1)
-            $display("write_fpreg 1  is fpu %h w %h sa%h sb%h i1   %h i2 %h  i3 %h",fpucontrol , fp_wd3,fp_srcb ,  fp_srca,instr[15:11], instr[20:16],write_fpreg); 
-            end
+    
      
 endmodule

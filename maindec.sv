@@ -83,6 +83,4 @@ always_comb
         default:   controls <= 30'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // illegal op
 
     endcase
-    always @(memwrite )
-    $display("%h",memwrite);
 endmodule

@@ -12,7 +12,7 @@ logic [31:0] frf[31:0];
 // note: for pipelined processor, write third port
 // on falling edge of clk
 
-always_ff @(negedge clk)
+always_ff @(posedge clk)
     if (fwe) frf[fwa3] <= fwd3;
 
     assign frd1 = (fra1 != 0) ? frf[fra1] : 0;

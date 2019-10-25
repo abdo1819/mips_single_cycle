@@ -24,7 +24,7 @@ always
 always @(negedge clk)
     begin
         if (memwrite) begin
-             $display("v: %h  addr :%h",writedata,dataadr);
+         
            
             if (dataadr === 88 & writedata === 32'hc1800888) begin
         	 
