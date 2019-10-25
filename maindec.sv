@@ -45,8 +45,10 @@ always_comb
 			6'b000000: controls <= 30'b000000000000000000000000000101; // fpu add
 			6'b000001: controls <= 30'b000000000000000000000000010101; // fpu subtract 
 			6'b000010: controls <= 30'b000000000000000000000000100101; // fpu multi
-			6'b000001: controls <= 30'b000000000000000000000000110101; // fpu division
-			
+		    6'b000001: controls <= 30'b000000000000000000000000110101; // fpu division
+            6'b000111: controls <= 30'b000000000000000000000001010101; // fpu neg
+            6'b000101: controls <= 30'b000000000000000000000001000101; // fpu abs
+        	
 		endcase
 	end
         6'b100011: controls <= 30'b100100010000000000000000000000; // LW
@@ -72,7 +74,7 @@ always_comb
         6'b101001: controls <= 30'b000101000000000000000000000000; // sh
         6'b101000: controls <= 30'b000101100000000000000000000000; // sb
     	6'b110001: controls <= 30'b000100000000000000000000000110; // fpu load word
-	6'b110001: controls <= 30'b000100100000000000000000001000; // fpu save word
+	    6'b111001: controls <= 30'b000100100000000000000000001000; // fpu save word
 		
 					
 		
@@ -81,5 +83,4 @@ always_comb
         default:   controls <= 30'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx; // illegal op
 
     endcase
-    
 endmodule

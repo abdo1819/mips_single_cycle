@@ -1,9 +1,10 @@
-module testbench_fpu_lw_sw();
+module testbench_fpu_neg();
 
 logic clk;
 logic reset;
 logic [31:0] writedata, dataadr;
 logic [1:0]memwrite;
+int i=0;
 // instantiate device to be tested
 top dut (clk, reset, writedata, dataadr, memwrite);
 
@@ -16,20 +17,21 @@ initial
 // generate clock to sequence tests
 always
     begin
-    clk <= 1; # 5; clk <= 0; # 5;
+    clk <= 1; # 70; clk <= 0; # 70;
     end
 
 // check results
 always @(negedge clk)
     begin
         if (memwrite) begin
+         
+           
+            if (dataadr === 88 & writedata === 32'hc1800888) begin
+        	 
             
-            if (dataadr === 84 & writedata === 32'h41800888) begin
-        	$display("ssuceed");
-            $stop;
+            		$display("succeed");
+            		$stop;
                  end
-            end 
-            		
     end
-
+end
 endmodule

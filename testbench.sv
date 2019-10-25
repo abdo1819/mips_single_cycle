@@ -27,7 +27,7 @@ always @(negedge clk)
             if (dataadr === 84 & writedata === 32'hFFFF7F02) begin
                     $display("Simulation succeeded");
                    // $stop;
-            end else if (dataadr !== 84) begin
+            end else if (dataadr !== 80) begin
                 $display("Simulation failed");
           //      $stop;
             end

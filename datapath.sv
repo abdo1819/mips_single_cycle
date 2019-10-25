@@ -97,18 +97,14 @@ module datapath(input logic clk, reset,
     
     
     // Write data mux selector, either from regfile or fpregfile
-  mux2 #(32) fpmemmux(rd2,fp_srcb,fpu_mem_write,writedata); //overwrite rd2??
+    mux2 #(32) fpmemmux(rd2,fp_srcb,fpu_mem_write,writedata); //overwrite rd2??
 	mux2 #(32) fw3(fpu_out,readdata,mem_to_fp,fp_wd3);
-	mux2 #(5) fwreg(instr[20:16],instr[15:11],fp_regdst,write_fpreg);
+	mux2 #(5) fwreg(instr[20:16],instr[10:6],fp_regdst,write_fpreg);
     /* fpu and fpureg file  
      note that mux that choose between regfile write data and fpwrite data isn't implemented yet
      */
-	 
-     fpregfile frf(clk, fp_regwrite, instr[25:21], instr[20:16],
-                write_fpreg, fp_wd3, fp_srca, fp_srcb);
-                
+     fpregfile frf(clk, fp_regwrite, instr[15:11], instr[20:16],write_fpreg, fp_wd3, fp_srca, fp_srcb);
      fpu fpu(clk,fpucontrol,fp_srca,fp_srcb,fpu_out);
-     
-     
+    
      
 endmodule

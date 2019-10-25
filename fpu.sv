@@ -15,10 +15,6 @@ module fpu(input logic clk,
     reg funct1;
     logic finish;
 
-always 
-    begin
-        clk_div =1; #2; clk_div = 0; #2;
-    end
 
 
 
@@ -30,7 +26,7 @@ always
                             funct[0]//selector for adding operand a + or - operand b
                             );
     
-    FPU_division f(clk_div,a,b,o2,fin2);
+   // FPU_division f(clk_div,a,b,o2,fin2);
     
     multi m(clk,o3,a,b,fin3);
 
@@ -52,13 +48,14 @@ always
             0:o=o1;
             1:o=o1;
             2:o=o2;
-            3:o=o3;
+         //   3:o=o3;
             
 
-            7:o={0,b[30:0]};
-            8:o={~b[31],b[30:0]};
+            4:o={0,a[30:0]};
+            5:o={~a[31],a[30:0]};
 
         default: o=32'bz;
         endcase
     end
+ 
     endmodule
