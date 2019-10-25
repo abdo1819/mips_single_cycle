@@ -15,7 +15,7 @@ the following is a machine code description for lh and lb
  lb: 100000 $regRefearingToMemAddress $storeReg iiiiiiii iiiiiiii
 ```
 
-### Recipe:
+    ### Recipe:
 
 #### Items/Pins:
 
