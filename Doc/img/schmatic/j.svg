@@ -12,7 +12,7 @@
    viewBox="0 0 13260 8180"
    version="1.2"
    id="svg2596"
-   sodipodi:docname="jr_.svg"
+   sodipodi:docname="jr.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <metadata
      id="metadata2600">
@@ -40,8 +40,8 @@
      id="namedview2598"
      showgrid="false"
      inkscape:zoom="1.0822775"
-     inkscape:cx="679.08601"
-     inkscape:cy="948.7836"
+     inkscape:cx="586.91021"
+     inkscape:cy="690.75586"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -94,7 +94,7 @@
          fill-rule="evenodd"
          d="M5868,3328 L5716,3328 L5716,3379"
          id="path12"
-         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
+         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="none"
@@ -374,7 +374,7 @@
          fill-rule="evenodd"
          d="M890,3582 L890,4903"
          id="path68"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -594,7 +594,7 @@
          fill-rule="evenodd"
          d="M1194,3480 L1296,3480"
          id="path112"
-         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
+         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
     </g>
     <g
        fill="none"
@@ -714,7 +714,7 @@
          fill-rule="evenodd"
          d="M1296,3633 L1245,3633 L1245,2210 L6782,2210 L6782,3379"
          id="path136"
-         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="none"
@@ -1294,7 +1294,7 @@
          fill-rule="evenodd"
          d="M3328,3531 L3328,4090"
          id="path252"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -1334,7 +1334,7 @@
          fill-rule="evenodd"
          d="M3328,4090 L3328,4242"
          id="path260"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -1354,7 +1354,7 @@
          fill-rule="evenodd"
          d="M1296,4903 L1347,4903 L1347,4954 L3328,4954"
          id="path264"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -1374,7 +1374,7 @@
          fill-rule="evenodd"
          d="M3328,4242 L3328,4954"
          id="path268"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -1814,7 +1814,7 @@
          fill-rule="evenodd"
          d="M3328,3531 L3785,3531"
          id="path356"
-         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
+         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="none"
@@ -1834,7 +1834,7 @@
          fill-rule="evenodd"
          d="M5716,3379 L5462,3379 L5462,3531 L3785,3531"
          id="path360"
-         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
+         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="none"
@@ -2614,7 +2614,7 @@
          vector-effect="none"
          points="890,3582 991,3582 "
          id="polyline514"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -2673,7 +2673,7 @@
          vector-effect="none"
          points="1194,3480 1093,3480 "
          id="polyline524"
-         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
+         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
     </g>
     <g
        fill="none"
@@ -3507,7 +3507,7 @@
          vector-effect="none"
          points="5868,3328 5970,3328 "
          id="polyline668"
-         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
+         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="none"
@@ -3802,7 +3802,7 @@
          vector-effect="none"
          points="6681,3379 6579,3379 "
          id="polyline718"
-         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
+         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="none"
@@ -7227,7 +7227,7 @@
          fill-rule="evenodd"
          d="M1245,4801 L1042,4801 L940,5004 L1144,5004 L1245,4801"
          id="path1304"
-         style="stroke:#000040;stroke-opacity:1;fill:#000000;fill-opacity:0.03921569" />
+         style="stroke:#000040;stroke-opacity:1;fill:#00ff80;fill-opacity:1" />
     </g>
     <g
        fill="#c8c8aa"
@@ -7288,7 +7288,7 @@
          vector-effect="none"
          points="1296,4903 1194,4903 "
          id="polyline1314"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -7308,7 +7308,7 @@
          vector-effect="none"
          points="890,4903 991,4903 "
          id="polyline1318"
-         style="stroke:#008000;stroke-opacity:0.50196081;stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <g
        fill="none"
@@ -9314,7 +9314,7 @@
          vector-effect="none"
          points="1296,3480 1398,3480 "
          id="polyline1658"
-         style="stroke-width:8.00100015;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008000;stroke-opacity:0.50196081" />
+         style="stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none;stroke:#008080;stroke-opacity:1" />
     </g>
     <g
        fill="none"
@@ -10028,7 +10028,7 @@
          fill-rule="evenodd"
          d="M6792,3379 C6792,3384.52 6787.52,3389 6782,3389 C6776.48,3389 6772,3384.52 6772,3379 C6772,3373.48 6776.48,3369 6782,3369 C6787.52,3369 6792,3373.48 6792,3379 "
          id="path1780"
-         style="stroke:#008080;stroke-opacity:1;stroke-width:21.16666707;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="stroke:#008000;stroke-opacity:0.50196081" />
     </g>
     <g
        fill="#004000"
