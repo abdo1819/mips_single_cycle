@@ -1,0 +1,9 @@
+addiu,jr
+sh,jal
+sb,bne
+sra,andi
+sllv,srl
+divu,lh
+mult,lb
+subu,lbu
+-,-
